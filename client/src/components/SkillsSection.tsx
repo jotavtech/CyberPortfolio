@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect, useRef } from 'react';
-import GlitchText from '@/components/ui/glitch-text';
+import HighlightText from '@/components/ui/glitch-text';
 import { Skill } from '@shared/schema';
 
 // Componente de partículas de energia
@@ -229,14 +229,25 @@ const SkillsSection = () => {
 
   // Skeleton loader animation for cards
   const SkillCardSkeleton = () => (
-    <div className="card-3d bg-gradient-to-br from-deep-purple/80 to-cyber-black border border-neon-blue p-6 rounded-lg animate-pulse absolute w-full">
-      <div className="h-8 w-8 bg-neon-blue/20 rounded mb-4"></div>
-      <div className="h-6 w-32 bg-neon-blue/20 rounded mb-2"></div>
-      <div className="h-4 w-full bg-gray-700/30 rounded mb-4"></div>
-      <div className="space-y-2">
-        <div className="h-4 w-full bg-gray-700/30 rounded"></div>
-        <div className="h-4 w-full bg-gray-700/30 rounded"></div>
-        <div className="h-4 w-full bg-gray-700/30 rounded"></div>
+    <div className="skills-card border bg-gradient-to-b from-brand-dark to-brand-black/90 border-brand-gray/30 p-8 rounded-sm animate-pulse absolute w-full">
+      <div className="flex items-center mb-6">
+        <div className="h-8 w-8 bg-brand-red/20 rounded-sm mr-4"></div>
+        <div className="h-6 w-32 bg-brand-gray/20 rounded-sm"></div>
+      </div>
+      <div className="h-4 w-full bg-brand-gray/10 rounded-sm mb-6"></div>
+      <div className="space-y-3">
+        <div className="flex items-center">
+          <div className="h-1.5 w-1.5 bg-brand-gray/20 rounded-full mr-3"></div>
+          <div className="h-4 w-full bg-brand-gray/10 rounded-sm"></div>
+        </div>
+        <div className="flex items-center">
+          <div className="h-1.5 w-1.5 bg-brand-gray/20 rounded-full mr-3"></div>
+          <div className="h-4 w-full bg-brand-gray/10 rounded-sm"></div>
+        </div>
+        <div className="flex items-center">
+          <div className="h-1.5 w-1.5 bg-brand-gray/20 rounded-full mr-3"></div>
+          <div className="h-4 w-full bg-brand-gray/10 rounded-sm"></div>
+        </div>
       </div>
     </div>
   );
@@ -246,8 +257,8 @@ const SkillsSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20">
           <div className="relative inline-block">
-            <h2 className="font-future text-3xl md:text-4xl text-brand-white mb-4 tracking-wide title-reveal">
-              <span>EXPERTISE & SKILLS</span>
+            <h2 className="font-future text-3xl md:text-4xl text-brand-white mb-4 tracking-wide">
+              <HighlightText text="EXPERTISE & SKILLS" highlight="gradient" />
             </h2>
             <div className="h-1 w-16 bg-brand-red absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
           </div>
