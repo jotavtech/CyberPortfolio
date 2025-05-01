@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +11,7 @@ interface Song {
   audioUrl: string;
 }
 
-// Lista de músicas utilizando arquivos MP3 locais
+// Lista de músicas sem áudio real (simulação para interface)
 const songList: Song[] = [
   {
     id: 'around-the-world',
@@ -19,7 +19,8 @@ const songList: Song[] = [
     artist: 'Red Hot Chili Peppers',
     album: 'Californication',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: '/audio-new/song1.mp3'
+    // Usando audioUrl como ID apenas para manter o tipo consistente
+    audioUrl: '1'
   },
   {
     id: 'what-you-are',
@@ -27,7 +28,7 @@ const songList: Song[] = [
     artist: 'Audioslave',
     album: 'Audioslave',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: '/audio-new/song2.mp3'
+    audioUrl: '2'
   },
   {
     id: 'outshined',
@@ -35,7 +36,7 @@ const songList: Song[] = [
     artist: 'Soundgarden',
     album: 'Badmotorfinger',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=',
-    audioUrl: '/audio-new/song3.mp3'
+    audioUrl: '3'
   }
 ];
 
@@ -48,17 +49,24 @@ const FuturisticTurntable = () => {
   const animationRef = useRef<number>();
   const discRef = useRef<HTMLDivElement>(null);
   const armRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
   
-  // Efeito para atualizar o volume
+  // Função para ir para a próxima música
+  const nextSong = () => {
+    setIsPlaying(false);
+    
+    // Ir para a próxima música
+    const currentIndex = songList.findIndex(song => song.id === selectedSong.id);
+    const nextIndex = (currentIndex + 1) % songList.length;
+    setTimeout(() => {
+      setSelectedSong(songList[nextIndex]);
+      setIsPlaying(true);
+    }, 500);
+  };
+
+  // Efeito para controlar a rotação do disco e simular reprodução
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-    }
-  }, [volume]);
-  
-  // Efeito para controlar a rotação do disco
-  useEffect(() => {
+    let progressTimer: any = null;
+    
     if (isPlaying) {
       let lastTime = 0;
       
@@ -76,29 +84,34 @@ const FuturisticTurntable = () => {
         animationRef.current = requestAnimationFrame(animate);
       };
       
+      // Iniciar animação do disco
       animationRef.current = requestAnimationFrame(animate);
+      
+      // Iniciar progresso simulado
+      progressTimer = setInterval(() => {
+        setProgress(prev => {
+          const newValue = prev + 0.01;
+          if (newValue >= 1) {
+            clearInterval(progressTimer);
+            nextSong();
+            return 0;
+          }
+          return newValue;
+        });
+      }, 300);
       
       // Animar o braço do toca-discos
       if (armRef.current) {
         armRef.current.style.transform = 'rotate(25deg)';
       }
-      
-      // Iniciar a reprodução
-      if (audioRef.current) {
-        audioRef.current.play().catch(err => {
-          console.error("Error playing audio:", err);
-          setIsPlaying(false);
-        });
-      }
     } else {
-      // Pausar a reprodução
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      
-      // Parar a animação
+      // Parar as animações
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
+      }
+      
+      if (progressTimer) {
+        clearInterval(progressTimer);
       }
       
       // Retornar o braço quando parar
@@ -111,36 +124,11 @@ const FuturisticTurntable = () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      if (progressTimer) {
+        clearInterval(progressTimer);
+      }
     };
-  }, [isPlaying]);
-
-  // Efeito para atualizar a música quando ela é alterada
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.load(); // Isso recarrega o áudio com a nova fonte
-    }
-  }, [selectedSong]);
-
-  // Handler para atualizar o progresso
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const currentProgress = audioRef.current.currentTime / audioRef.current.duration;
-      setProgress(isNaN(currentProgress) ? 0 : currentProgress);
-    }
-  };
-
-  // Handler para quando a música acabar
-  const handleEnded = () => {
-    setIsPlaying(false);
-    
-    // Ir para a próxima música
-    const currentIndex = songList.findIndex(song => song.id === selectedSong.id);
-    const nextIndex = (currentIndex + 1) % songList.length;
-    setTimeout(() => {
-      setSelectedSong(songList[nextIndex]);
-      setIsPlaying(true);
-    }, 500);
-  };
+  }, [isPlaying, selectedSong.id]);
 
   // Função para alternar entre play/pause
   const togglePlay = () => {
@@ -170,14 +158,7 @@ const FuturisticTurntable = () => {
 
   return (
     <div className="w-full relative">
-      {/* Elemento de áudio */}
-      <audio 
-        ref={audioRef}
-        src={selectedSong.audioUrl}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={handleEnded}
-        className="hidden"
-      />
+      {/* Removemos o elemento de áudio pois estamos simulando a reprodução */}
       
       {/* Toca-discos */}
       <div className="relative bg-mono-deeper border border-mono-white/20 rounded-lg p-6 w-full aspect-square max-w-md mx-auto shadow-[0_0_30px_rgba(255,255,255,0.05)] backdrop-blur-md">
