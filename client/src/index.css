@@ -248,6 +248,23 @@
   .parallax-front {
     transform: translateZ(50px);
   }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+  
+  /* Estilo específico para o carrossel de skills */
+  .skills-cards-container {
+    transform-style: preserve-3d;
+    perspective: 1500px;
+  }
+  
+  .skills-card {
+    backface-visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: center center;
+  }
 }
 
 @layer utilities {

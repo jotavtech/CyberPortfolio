@@ -131,6 +131,54 @@ export default {
             textShadow: "0 0 5px hsl(var(--neon-blue)), 0 0 10px hsl(var(--neon-blue)), 0 0 15px hsl(var(--neon-blue))"
           },
         },
+        "card-enter-right": {
+          "0%": { 
+            transform: "translateX(100%) scale(0.8) rotate(5deg)",
+            opacity: "0"
+          },
+          "100%": { 
+            transform: "translateX(0) scale(1) rotate(0deg)",
+            opacity: "1"
+          }
+        },
+        "card-enter-left": {
+          "0%": { 
+            transform: "translateX(-100%) scale(0.8) rotate(-5deg)",
+            opacity: "0"
+          },
+          "100%": { 
+            transform: "translateX(0) scale(1) rotate(0deg)",
+            opacity: "1"
+          }
+        },
+        "card-exit-right": {
+          "0%": { 
+            transform: "translateX(0) scale(1) rotate(0deg)",
+            opacity: "1"
+          },
+          "100%": { 
+            transform: "translateX(100%) scale(0.8) rotate(5deg)",
+            opacity: "0"
+          }
+        },
+        "card-exit-left": {
+          "0%": { 
+            transform: "translateX(0) scale(1) rotate(0deg)",
+            opacity: "1"
+          },
+          "100%": { 
+            transform: "translateX(-100%) scale(0.8) rotate(-5deg)",
+            opacity: "0"
+          }
+        },
+        "card-glow": {
+          "0%, 100%": { 
+            boxShadow: "0 0 5px rgba(255, 0, 255, 0.3), 0 0 10px rgba(255, 0, 255, 0.2), 0 0 15px rgba(255, 0, 255, 0.1)"
+          },
+          "50%": { 
+            boxShadow: "0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3), 0 0 30px rgba(255, 0, 255, 0.2)"
+          }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -141,6 +189,11 @@ export default {
         "blink-caret": "blink-caret 0.75s step-end infinite",
         "noise": "noise 0.2s infinite",
         "pulse-neon": "pulse-neon 2s infinite",
+        "card-enter-right": "card-enter-right 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+        "card-enter-left": "card-enter-left 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+        "card-exit-right": "card-exit-right 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+        "card-exit-left": "card-exit-left 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+        "card-glow": "card-glow 2s infinite",
       },
     },
   },
