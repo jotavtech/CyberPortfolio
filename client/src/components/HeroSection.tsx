@@ -2,6 +2,9 @@ import { useRef, useEffect } from 'react';
 import GlitchText from '@/components/ui/glitch-text';
 import FuturisticTurntable from '@/components/FuturisticTurntable';
 import ParallaxEffect from '@/components/ui/parallax-effect';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 const HeroSection = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -75,7 +78,7 @@ const HeroSection = () => {
                 className="text-mono-white hover:text-mono-medium transition-colors text-2xl bg-mono-deeper/70 w-12 h-12 flex items-center justify-center rounded-full hover:bg-mono-deeper border border-mono-white/10"
                 aria-label="GitHub"
               >
-                <i className="fab fa-github"></i>
+                <FontAwesomeIcon icon={faGithub} />
               </a>
               <a 
                 href="https://wa.me/5583999290376" 
@@ -84,14 +87,14 @@ const HeroSection = () => {
                 className="text-mono-white hover:text-mono-medium transition-colors text-2xl bg-mono-deeper/70 w-12 h-12 flex items-center justify-center rounded-full hover:bg-mono-deeper border border-mono-white/10"
                 aria-label="WhatsApp"
               >
-                <i className="fab fa-whatsapp"></i>
+                <FontAwesomeIcon icon={faWhatsapp} />
               </a>
               <a 
                 href="mailto:martinsjoao1227@gmail.com" 
                 className="text-mono-white hover:text-mono-medium transition-colors text-2xl bg-mono-deeper/70 w-12 h-12 flex items-center justify-center rounded-full hover:bg-mono-deeper border border-mono-white/10"
                 aria-label="Email"
               >
-                <i className="fas fa-envelope"></i>
+                <FontAwesomeIcon icon={faEnvelope} />
               </a>
             </div>
           </div>

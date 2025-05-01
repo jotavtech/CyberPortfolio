@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause, faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
 interface Song {
   id: string;
@@ -9,6 +11,9 @@ interface Song {
   audioUrl: string;
 }
 
+// Usando a API gratuita do Napster para músicas
+const API_KEY = 'ZTVhYTU3MWEtZjRhNy00MWRjLWJjZjUtNjQwNTAwNDFhMTJk';
+
 const songList: Song[] = [
   {
     id: 'around-the-world',
@@ -16,7 +21,7 @@ const songList: Song[] = [
     artist: 'Red Hot Chili Peppers',
     album: 'Californication',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg'
+    audioUrl: 'https://api.napster.com/v2.1/tracks/tra.5842934/stream?apikey=' + API_KEY
   },
   {
     id: 'what-you-are',
@@ -24,7 +29,7 @@ const songList: Song[] = [
     artist: 'Audioslave',
     album: 'Audioslave',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: 'https://actions.google.com/sounds/v1/science_fiction/alien_beacon.ogg'
+    audioUrl: 'https://api.napster.com/v2.1/tracks/tra.7559509/stream?apikey=' + API_KEY
   },
   {
     id: 'outshined',
@@ -32,7 +37,7 @@ const songList: Song[] = [
     artist: 'Soundgarden',
     album: 'Badmotorfinger',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=',
-    audioUrl: 'https://actions.google.com/sounds/v1/science_fiction/spacecraft.ogg'
+    audioUrl: 'https://api.napster.com/v2.1/tracks/tra.1206929/stream?apikey=' + API_KEY
   }
 ];
 
@@ -257,8 +262,9 @@ const FuturisticTurntable = () => {
           <button 
             onClick={togglePlay}
             className="w-12 h-12 rounded-full bg-mono-white flex items-center justify-center text-mono-black hover:bg-mono-light transition-colors"
+            aria-label={isPlaying ? "Pausar" : "Reproduzir"}
           >
-            <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-play'}`}></i>
+            <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} size="lg" />
           </button>
           
           {/* Efeito visual de reprodução */}
@@ -305,7 +311,10 @@ const FuturisticTurntable = () => {
           
           {/* Controle de volume */}
           <div className="flex items-center justify-end space-x-2">
-            <i className={`fas ${volume > 0 ? 'fa-volume-up' : 'fa-volume-mute'} text-mono-medium text-xs`}></i>
+            <FontAwesomeIcon 
+              icon={volume > 0 ? faVolumeUp : faVolumeMute} 
+              className="text-mono-medium text-sm" 
+            />
             <input 
               type="range" 
               min="0" 
@@ -314,6 +323,7 @@ const FuturisticTurntable = () => {
               value={volume}
               onChange={handleVolumeChange}
               className="w-24 accent-mono-white"
+              aria-label="Controle de volume"
             />
           </div>
         </div>
@@ -356,7 +366,7 @@ const FuturisticTurntable = () => {
                     className="text-mono-white hover:text-mono-light w-8 h-8 flex items-center justify-center rounded-full border border-mono-white/20 hover:bg-mono-white/10 transition-all"
                     aria-label={`Play ${song.title}`}
                   >
-                    <i className="fas fa-play text-xs"></i>
+                    <FontAwesomeIcon icon={faPlay} size="xs" />
                   </button>
                 )}
               </div>
