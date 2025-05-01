@@ -26,12 +26,32 @@ const HeroSection = () => {
               <div className="flex flex-wrap gap-4 parallax-item">
                 <a 
                   href="#contact" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.querySelector('#contact');
+                    if (element) {
+                      window.scrollTo({
+                        top: element.getBoundingClientRect().top + window.scrollY - 80,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
                   className="inline-block bg-mono-white text-mono-black px-6 py-3 font-future font-bold hover:bg-mono-medium transition-colors duration-300 button-highlight"
                 >
                   CONTRATE-ME
                 </a>
                 <a 
                   href="#projects" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.querySelector('#projects');
+                    if (element) {
+                      window.scrollTo({
+                        top: element.getBoundingClientRect().top + window.scrollY - 80,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
                   className="inline-block border-2 border-mono-medium text-mono-medium px-6 py-3 font-future font-bold hover:border-mono-white hover:text-mono-white transition-all duration-300"
                 >
                   VER PROJETOS

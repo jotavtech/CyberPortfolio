@@ -23,6 +23,19 @@ const Navbar = () => {
   const closeMenu = () => {
     setMobileMenuOpen(false);
   };
+  
+  // Função para rolagem suave
+  const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    const element = document.querySelector(target);
+    if (element) {
+      window.scrollTo({
+        top: element.getBoundingClientRect().top + window.scrollY - 80, // Ajuste para o header fixo
+        behavior: 'smooth'
+      });
+      closeMenu();
+    }
+  };
 
   return (
     <nav className={`fixed w-full top-0 z-50 border-b transition-all duration-300 ${
@@ -35,11 +48,11 @@ const Navbar = () => {
         
         {/* Desktop Nav */}
         <div className="hidden md:flex space-x-8">
-          <a href="#home" className="text-mono-medium hover:text-mono-white transition-colors decorative-line">INÍCIO</a>
-          <a href="#skills" className="text-mono-medium hover:text-mono-white transition-colors decorative-line">HABILIDADES</a>
-          <a href="#projects" className="text-mono-medium hover:text-mono-white transition-colors decorative-line">PROJETOS</a>
-          <a href="#services" className="text-mono-medium hover:text-mono-white transition-colors decorative-line">SERVIÇOS</a>
-          <a href="#contact" className="text-mono-medium hover:text-mono-white transition-colors decorative-line">CONTATO</a>
+          <a href="#home" onClick={(e) => smoothScroll(e, '#home')} className="text-mono-medium hover:text-mono-white transition-colors decorative-line">INÍCIO</a>
+          <a href="#skills" onClick={(e) => smoothScroll(e, '#skills')} className="text-mono-medium hover:text-mono-white transition-colors decorative-line">HABILIDADES</a>
+          <a href="#projects" onClick={(e) => smoothScroll(e, '#projects')} className="text-mono-medium hover:text-mono-white transition-colors decorative-line">PROJETOS</a>
+          <a href="#services" onClick={(e) => smoothScroll(e, '#services')} className="text-mono-medium hover:text-mono-white transition-colors decorative-line">SERVIÇOS</a>
+          <a href="#contact" onClick={(e) => smoothScroll(e, '#contact')} className="text-mono-medium hover:text-mono-white transition-colors decorative-line">CONTATO</a>
         </div>
         
         {/* Mobile Menu Button */}
@@ -57,11 +70,11 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`md:hidden bg-mono-black border-t border-mono-white/20 transition-all duration-300 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="container mx-auto px-4 py-2 flex flex-col space-y-2">
-          <a href="#home" onClick={closeMenu} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">INÍCIO</a>
-          <a href="#skills" onClick={closeMenu} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">HABILIDADES</a>
-          <a href="#projects" onClick={closeMenu} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">PROJETOS</a>
-          <a href="#services" onClick={closeMenu} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">SERVIÇOS</a>
-          <a href="#contact" onClick={closeMenu} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">CONTATO</a>
+          <a href="#home" onClick={(e) => smoothScroll(e, '#home')} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">INÍCIO</a>
+          <a href="#skills" onClick={(e) => smoothScroll(e, '#skills')} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">HABILIDADES</a>
+          <a href="#projects" onClick={(e) => smoothScroll(e, '#projects')} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">PROJETOS</a>
+          <a href="#services" onClick={(e) => smoothScroll(e, '#services')} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">SERVIÇOS</a>
+          <a href="#contact" onClick={(e) => smoothScroll(e, '#contact')} className="text-mono-medium hover:text-mono-white py-2 px-4 hover:bg-mono-deeper transition-colors">CONTATO</a>
         </div>
       </div>
     </nav>

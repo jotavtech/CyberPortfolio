@@ -408,6 +408,16 @@ const SkillsSection = () => {
         <div className="mt-32 text-center">
           <a 
             href="#contact" 
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.querySelector('#contact');
+              if (element) {
+                window.scrollTo({
+                  top: element.getBoundingClientRect().top + window.scrollY - 80,
+                  behavior: 'smooth'
+                });
+              }
+            }}
             className="inline-block bg-mono-white text-mono-black px-8 py-3 font-future tracking-wider hover:bg-mono-medium hover:text-mono-black transition-colors duration-300 button-highlight"
           >
             TRABALHE COMIGO <i className="fas fa-arrow-right ml-2"></i>
