@@ -6,6 +6,7 @@ interface Song {
   artist: string;
   album: string;
   cover: string;
+  audioUrl: string;
 }
 
 const songList: Song[] = [
@@ -14,21 +15,24 @@ const songList: Song[] = [
     title: 'Around The World',
     artist: 'Red Hot Chili Peppers',
     album: 'Californication',
-    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4='
+    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
+    audioUrl: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_01_-_Enthusiast.mp3'
   },
   {
     id: 'what-you-are',
     title: 'What You Are',
     artist: 'Audioslave',
     album: 'Audioslave',
-    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4='
+    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
+    audioUrl: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Broke_For_Free/Directionless_EP/Broke_For_Free_-_01_-_Night_Owl.mp3'
   },
   {
     id: 'outshined',
     title: 'Outshined',
     artist: 'Soundgarden',
     album: 'Badmotorfinger',
-    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4='
+    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=',
+    audioUrl: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Shipping_Lanes.mp3'
   }
 ];
 
@@ -36,13 +40,82 @@ const FuturisticTurntable = () => {
   const [selectedSong, setSelectedSong] = useState<Song>(songList[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const [volume, setVolume] = useState(0.5);
+  const [progress, setProgress] = useState(0);
   const animationRef = useRef<number>();
   const discRef = useRef<HTMLDivElement>(null);
   const armRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // Inicializar o elemento de áudio
+  useEffect(() => {
+    audioRef.current = new Audio();
+    audioRef.current.volume = volume;
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+  
+  // Efeito para atualizar o volume
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+  
+  // Efeito para atualizar a música quando ela é alterada
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.src = selectedSong.audioUrl;
+      audioRef.current.load();
+      
+      // Adicionar listener para atualizar o progresso da música
+      const updateProgress = () => {
+        if (audioRef.current) {
+          const currentProgress = audioRef.current.currentTime / audioRef.current.duration;
+          setProgress(isNaN(currentProgress) ? 0 : currentProgress);
+        }
+      };
+      
+      // Adicionar listener para quando a música acabar
+      const handleEnded = () => {
+        setIsPlaying(false);
+        
+        // Ir para a próxima música
+        const currentIndex = songList.findIndex(song => song.id === selectedSong.id);
+        const nextIndex = (currentIndex + 1) % songList.length;
+        setTimeout(() => {
+          setSelectedSong(songList[nextIndex]);
+          setIsPlaying(true);
+        }, 500);
+      };
+      
+      audioRef.current.addEventListener('timeupdate', updateProgress);
+      audioRef.current.addEventListener('ended', handleEnded);
+      
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.removeEventListener('timeupdate', updateProgress);
+          audioRef.current.removeEventListener('ended', handleEnded);
+        }
+      };
+    }
+  }, [selectedSong]);
 
-  // Efeito para controlar a rotação do disco
+  // Efeito para controlar a reprodução e a rotação do disco
   useEffect(() => {
     if (isPlaying) {
+      if (audioRef.current) {
+        audioRef.current.play().catch(err => {
+          console.error("Error playing audio:", err);
+          setIsPlaying(false);
+        });
+      }
+      
       let lastTime = 0;
       
       const animate = (time: number) => {
@@ -66,6 +139,10 @@ const FuturisticTurntable = () => {
         armRef.current.style.transform = 'rotate(25deg)';
       }
     } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -93,12 +170,23 @@ const FuturisticTurntable = () => {
     if (selectedSong.id === song.id) {
       togglePlay();
     } else {
+      // Parar a música atual
       setIsPlaying(false);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      
       setTimeout(() => {
         setSelectedSong(song);
         setIsPlaying(true);
       }, 500);
     }
+  };
+  
+  // Função para ajustar o volume
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
   };
 
   return (
@@ -191,8 +279,8 @@ const FuturisticTurntable = () => {
         </div>
         
         {/* HUD futurista com informações da música */}
-        <div className="absolute -bottom-16 -left-3 -right-3 bg-mono-deeper border border-mono-white/20 rounded-lg p-4 backdrop-blur-md">
-          <div className="flex justify-between items-center">
+        <div className="absolute -bottom-20 -left-3 -right-3 bg-mono-deeper border border-mono-white/20 rounded-lg p-4 backdrop-blur-md">
+          <div className="flex justify-between items-center mb-2">
             <div>
               <div className="text-mono-white font-future text-lg truncate">{selectedSong.title}</div>
               <div className="text-mono-medium text-sm">{selectedSong.artist} - {selectedSong.album}</div>
@@ -206,43 +294,68 @@ const FuturisticTurntable = () => {
               )}
             </div>
           </div>
+          
+          {/* Barra de progresso */}
+          <div className="relative w-full h-1 bg-mono-white/10 mt-2 mb-3 rounded-full overflow-hidden">
+            <div 
+              className="absolute top-0 left-0 h-full bg-mono-white/50 rounded-full"
+              style={{ width: `${progress * 100}%` }}
+            ></div>
+          </div>
+          
+          {/* Controle de volume */}
+          <div className="flex items-center justify-end space-x-2">
+            <i className={`fas ${volume > 0 ? 'fa-volume-up' : 'fa-volume-mute'} text-mono-medium text-xs`}></i>
+            <input 
+              type="range" 
+              min="0" 
+              max="1" 
+              step="0.01" 
+              value={volume}
+              onChange={handleVolumeChange}
+              className="w-24 accent-mono-white"
+            />
+          </div>
         </div>
       </div>
       
       {/* Lista de músicas */}
-      <div className="mt-20 bg-mono-deeper/80 border border-mono-white/20 rounded-lg p-4 max-w-md mx-auto backdrop-blur-md">
+      <div className="mt-28 bg-mono-deeper/80 border border-mono-white/20 rounded-lg p-4 max-w-md mx-auto backdrop-blur-md">
         <h3 className="text-mono-white font-future text-lg mb-4 text-center border-b border-mono-white/10 pb-2">PLAYLIST</h3>
         <ul className="space-y-2">
           {songList.map((song) => (
             <li 
               key={song.id}
               onClick={() => selectSong(song)}
-              className={`flex items-center p-2 cursor-pointer transition-all duration-300 ${
+              className={`flex items-center p-3 cursor-pointer transition-all duration-300 ${
                 selectedSong.id === song.id 
-                  ? 'bg-mono-white/10 rounded-md border-l-4 border-mono-white pl-3' 
+                  ? 'bg-mono-white/10 rounded-md border-l-4 border-mono-white pl-4' 
                   : 'hover:bg-mono-white/5 rounded-md'
               }`}
             >
-              <div className="w-10 h-10 mr-3 rounded-md overflow-hidden flex-shrink-0 border border-mono-white/20">
+              <div className="w-12 h-12 mr-4 rounded-md overflow-hidden flex-shrink-0 border border-mono-white/20">
                 <img src={song.cover} alt={song.album} className="w-full h-full object-cover" />
               </div>
               <div className="flex-grow min-w-0">
-                <div className="text-mono-white font-medium truncate">{song.title}</div>
-                <div className="text-mono-medium text-xs truncate">{song.artist}</div>
+                <div className="text-mono-white font-medium text-base truncate">{song.title}</div>
+                <div className="text-mono-medium text-sm truncate">{song.artist}</div>
               </div>
-              <div className="ml-2 flex-shrink-0">
+              <div className="ml-3 flex-shrink-0">
                 {selectedSong.id === song.id && isPlaying ? (
                   <div className="flex space-x-0.5">
                     {[1, 2, 3].map(i => (
                       <div 
                         key={i} 
-                        className="w-0.5 h-3 bg-mono-white rounded-full animate-pulse" 
+                        className="w-1 h-4 bg-mono-white rounded-full animate-pulse" 
                         style={{ animationDelay: `${i * 0.2}s` }}
                       ></div>
                     ))}
                   </div>
                 ) : (
-                  <button className="text-mono-white hover:text-mono-light w-6 h-6 flex items-center justify-center rounded-full">
+                  <button 
+                    className="text-mono-white hover:text-mono-light w-8 h-8 flex items-center justify-center rounded-full border border-mono-white/20 hover:bg-mono-white/10 transition-all"
+                    aria-label={`Play ${song.title}`}
+                  >
                     <i className="fas fa-play text-xs"></i>
                   </button>
                 )}

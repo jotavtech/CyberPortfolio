@@ -67,12 +67,12 @@ const HeroSection = () => {
             </div>
             
             {/* Links de redes sociais */}
-            <div className="flex justify-center mt-6 space-x-4">
+            <div className="flex justify-center mt-32 space-x-6">
               <a 
                 href="https://github.com/jotavtech" 
                 target="_blank" 
                 rel="noreferrer"
-                className="text-mono-white hover:text-mono-medium transition-colors text-2xl"
+                className="text-mono-white hover:text-mono-medium transition-colors text-2xl bg-mono-deeper/70 w-12 h-12 flex items-center justify-center rounded-full hover:bg-mono-deeper border border-mono-white/10"
                 aria-label="GitHub"
               >
                 <i className="fab fa-github"></i>
@@ -81,14 +81,14 @@ const HeroSection = () => {
                 href="https://wa.me/5583999290376" 
                 target="_blank" 
                 rel="noreferrer"
-                className="text-mono-white hover:text-mono-medium transition-colors text-2xl"
+                className="text-mono-white hover:text-mono-medium transition-colors text-2xl bg-mono-deeper/70 w-12 h-12 flex items-center justify-center rounded-full hover:bg-mono-deeper border border-mono-white/10"
                 aria-label="WhatsApp"
               >
                 <i className="fab fa-whatsapp"></i>
               </a>
               <a 
                 href="mailto:martinsjoao1227@gmail.com" 
-                className="text-mono-white hover:text-mono-medium transition-colors text-2xl"
+                className="text-mono-white hover:text-mono-medium transition-colors text-2xl bg-mono-deeper/70 w-12 h-12 flex items-center justify-center rounded-full hover:bg-mono-deeper border border-mono-white/10"
                 aria-label="Email"
               >
                 <i className="fas fa-envelope"></i>
