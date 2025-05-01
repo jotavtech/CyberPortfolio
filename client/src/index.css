@@ -6,45 +6,45 @@
 
 @layer base {
   :root {
-    --background: 210 10% 10%;
-    --foreground: 0 0% 95%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 210 10% 6%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 210 10% 6%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 15 80% 50%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 210 50% 40%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 70%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 15% 20%;
-    --muted-foreground: 0 0% 80%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 45 80% 50%;
-    --accent-foreground: 210 20% 10%;
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 25%;
-    --input: 210 15% 15%;
-    --ring: 15 80% 50%;
+    --border: 0 0% 20%;
+    --input: 0 0% 10%;
+    --ring: 0 0% 80%;
 
-    --radius: 0.25rem;
+    --radius: 0rem;
 
-    /* Custom colors (inspirado em Vans e Royal Enfield) */
-    --brand-red: 15 80% 50%;      /* Vermelho Royal Enfield */
-    --brand-gold: 45 80% 50%;     /* Dourado para acentos */
-    --brand-blue: 210 50% 40%;    /* Azul profundo */
-    --brand-black: 210 10% 10%;   /* Preto com leve tom azulado */
-    --brand-white: 0 0% 95%;      /* Branco levemente suavizado */
-    --brand-gray: 210 10% 60%;    /* Cinza neutro */
-    --brand-dark: 210 15% 15%;    /* Tom escuro para fundos */
-    --brand-light: 210 10% 98%;   /* Tom claro para textos em fundos escuros */
+    /* Custom colors (minimalista preto e branco) */
+    --mono-white: 0 0% 100%;      /* Branco puro */
+    --mono-offwhite: 0 0% 96%;    /* Quase branco */
+    --mono-light: 0 0% 90%;       /* Cinza claro */
+    --mono-medium: 0 0% 50%;      /* Cinza médio */
+    --mono-dark: 0 0% 20%;        /* Cinza escuro */
+    --mono-deeper: 0 0% 10%;      /* Quase preto */
+    --mono-black: 0 0% 0%;        /* Preto puro */
+    --mono-accent: 0 0% 100%;     /* Acento (branco para contraste) */
   }
 
   * {
@@ -52,7 +52,7 @@
   }
 
   body {
-    @apply font-digital bg-deep-purple text-foreground overflow-x-hidden;
+    @apply font-digital bg-mono-black text-foreground overflow-x-hidden;
     scroll-behavior: smooth;
   }
 
@@ -70,7 +70,7 @@
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: hsl(var(--brand-red));
+    background-color: hsl(var(--mono-white));
     transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
@@ -133,7 +133,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: hsl(var(--brand-red));
+    background-color: hsl(var(--mono-white));
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
@@ -145,7 +145,7 @@
   }
 
   .button-highlight:hover {
-    color: hsl(var(--brand-white));
+    color: hsl(var(--mono-black));
   }
 
   /* Float animation (suavizada) */
@@ -170,7 +170,7 @@
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: hsl(var(--brand-red));
+    background-color: hsl(var(--mono-white));
     transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
@@ -185,12 +185,12 @@
   }
 
   .hover-glow:hover {
-    box-shadow: 0 0 15px rgba(var(--brand-red), 0.4);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
   }
 
   /* Efeito de gradiente em texto */
   .gradient-text {
-    background: linear-gradient(45deg, hsl(var(--brand-red)), hsl(var(--brand-gold)));
+    background: linear-gradient(45deg, hsl(var(--mono-white)), hsl(var(--mono-medium)));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -210,16 +210,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--brand-dark));
+    background: hsl(var(--mono-deeper));
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--brand-red));
+    background: hsl(var(--mono-medium));
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--brand-gold));
+    background: hsl(var(--mono-white));
   }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -337,7 +337,7 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     }
     to {
-      box-shadow: 0 8px 25px rgba(var(--brand-red), 0.3);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
     }
   }
 }
@@ -356,183 +356,199 @@
     font-family: 'Orbitron', sans-serif;
   }
 
-  /* Cores de texto novas (estilo Vans/Royal Enfield) */
-  .text-brand-red {
-    color: hsl(var(--brand-red));
+  /* Cores de texto monocromáticas */
+  .text-mono-white {
+    color: hsl(var(--mono-white));
   }
   
-  .text-brand-gold {
-    color: hsl(var(--brand-gold));
+  .text-mono-offwhite {
+    color: hsl(var(--mono-offwhite));
   }
   
-  .text-brand-blue {
-    color: hsl(var(--brand-blue));
+  .text-mono-light {
+    color: hsl(var(--mono-light));
+  }
+  
+  .text-mono-medium {
+    color: hsl(var(--mono-medium));
+  }
+  
+  .text-mono-dark {
+    color: hsl(var(--mono-dark));
+  }
+  
+  .text-mono-deeper {
+    color: hsl(var(--mono-deeper));
+  }
+  
+  .text-mono-black {
+    color: hsl(var(--mono-black));
+  }
+  
+  .text-mono-accent {
+    color: hsl(var(--mono-accent));
+  }
+
+  /* Cores de fundo monocromáticas */
+  .bg-mono-white {
+    background-color: hsl(var(--mono-white));
+  }
+  
+  .bg-mono-offwhite {
+    background-color: hsl(var(--mono-offwhite));
+  }
+  
+  .bg-mono-light {
+    background-color: hsl(var(--mono-light));
+  }
+  
+  .bg-mono-medium {
+    background-color: hsl(var(--mono-medium));
+  }
+  
+  .bg-mono-dark {
+    background-color: hsl(var(--mono-dark));
+  }
+  
+  .bg-mono-deeper {
+    background-color: hsl(var(--mono-deeper));
+  }
+  
+  .bg-mono-black {
+    background-color: hsl(var(--mono-black));
+  }
+  
+  .bg-mono-accent {
+    background-color: hsl(var(--mono-accent));
+  }
+
+  /* Cores de borda monocromáticas */
+  .border-mono-white {
+    border-color: hsl(var(--mono-white));
+  }
+  
+  .border-mono-offwhite {
+    border-color: hsl(var(--mono-offwhite));
+  }
+  
+  .border-mono-light {
+    border-color: hsl(var(--mono-light));
+  }
+  
+  .border-mono-medium {
+    border-color: hsl(var(--mono-medium));
+  }
+  
+  .border-mono-dark {
+    border-color: hsl(var(--mono-dark));
+  }
+  
+  .border-mono-deeper {
+    border-color: hsl(var(--mono-deeper));
+  }
+  
+  .border-mono-black {
+    border-color: hsl(var(--mono-black));
+  }
+  
+  .border-mono-accent {
+    border-color: hsl(var(--mono-accent));
+  }
+  
+  /* Cores antigas (mapeadas para novas cores monocromáticas) */
+  .text-brand-red, .text-neon-pink, .text-digital-orange {
+    color: hsl(var(--mono-white));
+  }
+  
+  .text-brand-gold, .text-neon-yellow {
+    color: hsl(var(--mono-light));
+  }
+  
+  .text-brand-blue, .text-neon-blue, .text-electric-purple, .text-neon-green {
+    color: hsl(var(--mono-medium));
   }
   
   .text-brand-black {
-    color: hsl(var(--brand-black));
+    color: hsl(var(--mono-black));
   }
   
   .text-brand-white {
-    color: hsl(var(--brand-white));
+    color: hsl(var(--mono-white));
   }
   
   .text-brand-gray {
-    color: hsl(var(--brand-gray));
+    color: hsl(var(--mono-medium));
   }
-
+  
   .text-brand-dark {
-    color: hsl(var(--brand-dark));
+    color: hsl(var(--mono-dark));
   }
   
   .text-brand-light {
-    color: hsl(var(--brand-light));
+    color: hsl(var(--mono-light));
   }
 
-  /* Cores de fundo novas (estilo Vans/Royal Enfield) */
-  .bg-brand-red {
-    background-color: hsl(var(--brand-red));
+  .bg-deep-purple, .bg-brand-black {
+    background-color: hsl(var(--mono-black));
   }
   
-  .bg-brand-gold {
-    background-color: hsl(var(--brand-gold));
+  .bg-cyber-black, .bg-brand-dark {
+    background-color: hsl(var(--mono-deeper));
   }
   
-  .bg-brand-blue {
-    background-color: hsl(var(--brand-blue));
+  .bg-brand-red, .bg-neon-pink, .bg-digital-orange {
+    background-color: hsl(var(--mono-white));
   }
   
-  .bg-brand-black {
-    background-color: hsl(var(--brand-black));
+  .bg-brand-blue, .bg-neon-blue, .bg-electric-purple, .bg-neon-green {
+    background-color: hsl(var(--mono-light));
+  }
+  
+  .bg-brand-gold, .bg-neon-yellow {
+    background-color: hsl(var(--mono-medium));
   }
   
   .bg-brand-white {
-    background-color: hsl(var(--brand-white));
+    background-color: hsl(var(--mono-white));
   }
   
   .bg-brand-gray {
-    background-color: hsl(var(--brand-gray));
-  }
-  
-  .bg-brand-dark {
-    background-color: hsl(var(--brand-dark));
+    background-color: hsl(var(--mono-medium));
   }
   
   .bg-brand-light {
-    background-color: hsl(var(--brand-light));
+    background-color: hsl(var(--mono-light));
   }
 
-  /* Cores de borda novas (estilo Vans/Royal Enfield) */
-  .border-brand-red {
-    border-color: hsl(var(--brand-red));
+  .border-brand-red, .border-neon-pink, .border-digital-orange {
+    border-color: hsl(var(--mono-white));
   }
   
-  .border-brand-gold {
-    border-color: hsl(var(--brand-gold));
+  .border-brand-blue, .border-neon-blue, .border-electric-purple, .border-neon-green {
+    border-color: hsl(var(--mono-light));
   }
   
-  .border-brand-blue {
-    border-color: hsl(var(--brand-blue));
+  .border-brand-gold, .border-neon-yellow {
+    border-color: hsl(var(--mono-medium));
   }
   
   .border-brand-black {
-    border-color: hsl(var(--brand-black));
+    border-color: hsl(var(--mono-black));
   }
   
   .border-brand-white {
-    border-color: hsl(var(--brand-white));
+    border-color: hsl(var(--mono-white));
   }
   
   .border-brand-gray {
-    border-color: hsl(var(--brand-gray));
+    border-color: hsl(var(--mono-medium));
   }
   
   .border-brand-dark {
-    border-color: hsl(var(--brand-dark));
+    border-color: hsl(var(--mono-dark));
   }
   
   .border-brand-light {
-    border-color: hsl(var(--brand-light));
-  }
-  
-  /* Cores antigas (mantidas para compatibilidade durante a transição) */
-  .text-neon-blue {
-    color: hsl(var(--brand-blue));
-  }
-  
-  .text-neon-pink {
-    color: hsl(var(--brand-red));
-  }
-  
-  .text-neon-green {
-    color: hsl(var(--secondary));
-  }
-  
-  .text-neon-yellow {
-    color: hsl(var(--brand-gold));
-  }
-  
-  .text-digital-orange {
-    color: hsl(var(--brand-gold));
-  }
-  
-  .text-electric-purple {
-    color: hsl(var(--brand-blue));
-  }
-
-  .bg-deep-purple {
-    background-color: hsl(var(--brand-black));
-  }
-  
-  .bg-cyber-black {
-    background-color: hsl(var(--brand-dark));
-  }
-  
-  .bg-neon-blue {
-    background-color: hsl(var(--brand-blue));
-  }
-  
-  .bg-neon-pink {
-    background-color: hsl(var(--brand-red));
-  }
-  
-  .bg-neon-green {
-    background-color: hsl(var(--secondary));
-  }
-  
-  .bg-neon-yellow {
-    background-color: hsl(var(--brand-gold));
-  }
-  
-  .bg-digital-orange {
-    background-color: hsl(var(--brand-gold));
-  }
-  
-  .bg-electric-purple {
-    background-color: hsl(var(--brand-blue));
-  }
-
-  .border-neon-blue {
-    border-color: hsl(var(--brand-blue));
-  }
-  
-  .border-neon-pink {
-    border-color: hsl(var(--brand-red));
-  }
-  
-  .border-neon-green {
-    border-color: hsl(var(--secondary));
-  }
-  
-  .border-neon-yellow {
-    border-color: hsl(var(--brand-gold));
-  }
-  
-  .border-digital-orange {
-    border-color: hsl(var(--brand-gold));
-  }
-  
-  .border-electric-purple {
-    border-color: hsl(var(--brand-blue));
+    border-color: hsl(var(--mono-light));
   }
 }
