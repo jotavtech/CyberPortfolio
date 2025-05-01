@@ -182,7 +182,7 @@ const SkillsSection = () => {
     }, 500);
   };
 
-  // Auto-rotate cards every 5 seconds if not interacting
+  // Rotação automática dos cards a cada 5 segundos se não houver interação
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isAnimating && skills && skills.length > 0) {
@@ -193,26 +193,26 @@ const SkillsSection = () => {
     return () => clearInterval(interval);
   }, [isAnimating, skills]);
 
-  // Function to generate the z-index and transform styles for each card
+  // Função para gerar os estilos z-index e transform para cada card
   const getCardStyle = (index: number) => {
     if (!skills) return {};
     
     const totalCards = skills.length;
     const diff = (index - currentIndex + totalCards) % totalCards;
     
-    // Z-index: highest for current card, decreasing as cards get further away
+    // Z-index: maior para o card atual, diminuindo conforme os cards se afastam
     const zIndex = totalCards - diff;
     
-    // Rotation: add slight rotation for stacked effect
+    // Rotação: adicionar leve rotação para efeito de empilhamento
     const rotate = diff * 2;
     
-    // Offset: cards behind current card are increasingly offset
+    // Offset: cards atrás do card atual são incrementalmente deslocados
     const translateY = diff * 5;
     
-    // Scale: cards behind current card are increasingly smaller
+    // Escala: cards atrás do card atual são incrementalmente menores
     const scale = 1 - (diff * 0.05);
     
-    // Opacity: cards further back are more transparent
+    // Opacidade: cards mais ao fundo são mais transparentes
     const opacity = 1 - (diff * 0.15);
     
     return {
@@ -223,9 +223,9 @@ const SkillsSection = () => {
     };
   };
 
-  // Skeleton loader animation for cards
+  // Animação de carregamento skeleton para os cards
   const SkillCardSkeleton = () => (
-    <div className="skills-card border bg-gradient-to-b from-mono-deeper to-mono-black/90 border-mono-medium/30 p-8 rounded-sm animate-pulse absolute w-full">
+    <div className="skills-card border bg-gradient-to-b from-mono-deeper to-mono-black/90 border-mono-medium/30 p-8 rounded-sm animate-pulse absolute w-full shadow-2xl backdrop-blur-sm">
       <div className="flex items-center mb-6">
         <div className="h-8 w-8 bg-mono-white/20 rounded-sm mr-4"></div>
         <div className="h-6 w-32 bg-mono-medium/20 rounded-sm"></div>
@@ -254,12 +254,12 @@ const SkillsSection = () => {
         <div className="text-center mb-20">
           <div className="relative inline-block">
             <h2 className="font-future text-3xl md:text-4xl text-mono-white mb-4 tracking-wide">
-              <HighlightText text="EXPERTISE & SKILLS" highlight="gradient" />
+              <HighlightText text="EXPERIÊNCIA & HABILIDADES" highlight="gradient" />
             </h2>
             <div className="h-1 w-16 bg-mono-white absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
           </div>
           <p className="text-mono-medium mt-8 max-w-2xl mx-auto leading-relaxed">
-            Equipped with design-focused technical skills and experience to create modern, engaging digital experiences.
+            Equipado com habilidades técnicas focadas em design e experiência para criar experiências digitais modernas e envolventes.
           </p>
         </div>
         
@@ -275,7 +275,7 @@ const SkillsSection = () => {
           </div>
         ) : error ? (
           <div className="text-center text-mono-white">
-            Failed to load skills. Please try again later.
+            Falha ao carregar habilidades. Por favor, tente novamente mais tarde.
           </div>
         ) : (
           <div className="relative h-[400px] md:h-[450px] w-full max-w-3xl mx-auto mt-16">
@@ -285,12 +285,12 @@ const SkillsSection = () => {
             )}
             
             <div className="absolute inset-0 skills-cards-container" ref={cardsContainerRef}>
-              {/* Overlay cards - stacked one over the other */}
+              {/* Cards sobrepostos - empilhados um sobre o outro */}
               <div className="relative w-full h-full perspective-1000">
                 {skills?.map((skill, index) => (
                   <div
                     key={skill.id}
-                    className={`skills-card absolute top-0 left-0 w-full p-8 rounded-sm border bg-gradient-to-b from-mono-deeper to-mono-black/90
+                    className={`skills-card absolute top-0 left-0 w-full p-8 rounded-sm border bg-gradient-to-b from-mono-deeper/95 to-mono-black shadow-2xl backdrop-blur-sm
                       ${currentIndex === index ? 'animate-card-glow' : ''}
                       ${direction === 'next' && currentIndex === index ? 'animate-card-enter-right' : ''}
                       ${direction === 'prev' && currentIndex === index ? 'animate-card-enter-left' : ''}
@@ -305,11 +305,27 @@ const SkillsSection = () => {
                         <i className={skill.icon}></i>
                       </div>
                       <h3 className="font-future text-xl transition-colors tracking-wider text-mono-white">
-                        {skill.title}
+                        {/* Tradução dinâmica dos títulos */}
+                        {skill.title === "Frontend Development" ? "Desenvolvimento Frontend" :
+                         skill.title === "UI/UX Design" ? "Design de UI/UX" :
+                         skill.title === "Mobile Development" ? "Desenvolvimento Mobile" :
+                         skill.title === "Web Animation" ? "Animação Web" :
+                         skill.title}
                       </h3>
                     </div>
                     
-                    <p className="text-mono-medium mb-6 leading-relaxed">{skill.description}</p>
+                    <p className="text-mono-medium mb-6 leading-relaxed">
+                      {/* Tradução dinâmica das descrições */}
+                      {skill.description.includes("Creating modern") ? 
+                        "Criando interfaces web modernas, responsivas e de alta performance com as mais recentes tecnologias frontend." :
+                      skill.description.includes("Designing intuitive") ? 
+                        "Projetando interfaces de usuário intuitivas e experiências de usuário que equilibram estética e funcionalidade." :
+                      skill.description.includes("Building responsive") ? 
+                        "Construindo aplicativos mobile responsivos e de alta performance para as plataformas iOS e Android." :
+                      skill.description.includes("Crafting engaging") ? 
+                        "Criando animações web envolventes e interativas que elevam a experiência do usuário e o engajamento." :
+                      skill.description}
+                    </p>
                     
                     <ul className="space-y-3">
                       {skill.items.map((item, idx) => (
@@ -317,7 +333,20 @@ const SkillsSection = () => {
                           <span 
                             className="inline-block w-1.5 h-1.5 mr-3 rounded-full bg-mono-white"
                           ></span>
-                          {item.text}
+                          {/* Tradução dinâmica dos itens */}
+                          {item.text.includes("React") && item.text.includes("Next.js") ? "React, Next.js e ecossistema moderno" :
+                           item.text.includes("Responsive") ? "Design responsivo e mobile-first" :
+                           item.text.includes("Performance") ? "Otimização de performance e acessibilidade" :
+                           item.text.includes("User-centered") ? "Design centrado no usuário e prototipagem" :
+                           item.text.includes("Wireframing") ? "Wireframing, testes de usabilidade" :
+                           item.text.includes("Design systems") ? "Sistemas de design e documentação" :
+                           item.text.includes("React Native") ? "React Native e Flutter" :
+                           item.text.includes("Native") ? "Integrações nativas e APIs" :
+                           item.text.includes("CI/CD") ? "CI/CD e distribuição de apps" :
+                           item.text.includes("GSAP") ? "GSAP, Framer Motion, Three.js" :
+                           item.text.includes("CSS") ? "CSS avançado e animações SVG" :
+                           item.text.includes("Particle") ? "Sistemas de partículas e efeitos visuais" :
+                           item.text}
                         </li>
                       ))}
                     </ul>
@@ -325,13 +354,13 @@ const SkillsSection = () => {
                 ))}
               </div>
 
-              {/* Navigation buttons */}
+              {/* Botões de navegação */}
               <div className="absolute bottom-[-60px] left-0 right-0 flex justify-center items-center gap-10">
                 <button
                   onClick={goToPrevCard}
                   disabled={isAnimating}
                   className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-mono-medium text-mono-medium hover:bg-mono-white hover:border-mono-white hover:text-mono-black transition-colors disabled:opacity-50 active:scale-95"
-                  aria-label="Previous skill"
+                  aria-label="Habilidade anterior"
                 >
                   <i className="fas fa-chevron-left"></i>
                 </button>
@@ -358,7 +387,7 @@ const SkillsSection = () => {
                           ? 'bg-mono-white scale-125' 
                           : 'bg-mono-medium hover:bg-mono-light'
                       }`}
-                      aria-label={`Go to skill ${idx + 1}`}
+                      aria-label={`Ir para habilidade ${idx + 1}`}
                     ></button>
                   ))}
                 </div>
@@ -367,7 +396,7 @@ const SkillsSection = () => {
                   onClick={goToNextCard}
                   disabled={isAnimating}
                   className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-mono-medium text-mono-medium hover:bg-mono-white hover:border-mono-white hover:text-mono-black transition-colors disabled:opacity-50 active:scale-95"
-                  aria-label="Next skill"
+                  aria-label="Próxima habilidade"
                 >
                   <i className="fas fa-chevron-right"></i>
                 </button>
@@ -381,12 +410,12 @@ const SkillsSection = () => {
             href="#contact" 
             className="inline-block bg-mono-white text-mono-black px-8 py-3 font-future tracking-wider hover:bg-mono-medium hover:text-mono-black transition-colors duration-300 button-highlight"
           >
-            WORK TOGETHER <i className="fas fa-arrow-right ml-2"></i>
+            TRABALHE COMIGO <i className="fas fa-arrow-right ml-2"></i>
           </a>
         </div>
       </div>
       
-      {/* Background subtle pattern */}
+      {/* Padrão de fundo sutil */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
         <div className="h-full w-full bg-gradient-to-b from-transparent to-mono-white/10"></div>
       </div>
