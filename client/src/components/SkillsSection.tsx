@@ -96,6 +96,8 @@ const EnergyParticles = ({ skillColor }: { skillColor: string }) => {
     
     // Função de animação
     const animate = () => {
+      if (!ctx || !canvas) return;
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       for (let i = 0; i < particlesArray.length; i++) {
@@ -111,6 +113,8 @@ const EnergyParticles = ({ skillColor }: { skillColor: string }) => {
     
     // Função para conectar partículas próximas
     const connectParticles = () => {
+      if (!ctx) return;
+      
       for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a; b < particlesArray.length; b++) {
           const dx = particlesArray[a].x - particlesArray[b].x;
