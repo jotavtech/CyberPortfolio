@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import GlitchText from '@/components/ui/glitch-text';
-import ThreeDCube from '@/components/ThreeDCube';
+import FuturisticTurntable from '@/components/FuturisticTurntable';
 import ParallaxEffect from '@/components/ui/parallax-effect';
 
 const HeroSection = () => {
@@ -61,9 +61,9 @@ const HeroSection = () => {
           </ParallaxEffect>
           
           <div className="relative">
-            {/* Cubo 3D rotativo com brilho animado */}
-            <div className="w-full h-64 md:h-96 relative perspective-1000 mx-auto max-w-md">
-              <ThreeDCube />
+            {/* Toca-discos futurista */}
+            <div className="mx-auto max-w-md">
+              <FuturisticTurntable />
             </div>
             
             {/* Links de redes sociais */}

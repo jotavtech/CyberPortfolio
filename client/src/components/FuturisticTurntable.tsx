@@ -1,0 +1,258 @@
+import { useState, useRef, useEffect } from 'react';
+
+interface Song {
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  cover: string;
+}
+
+const songList: Song[] = [
+  {
+    id: 'around-the-world',
+    title: 'Around The World',
+    artist: 'Red Hot Chili Peppers',
+    album: 'Californication',
+    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4='
+  },
+  {
+    id: 'what-you-are',
+    title: 'What You Are',
+    artist: 'Audioslave',
+    album: 'Audioslave',
+    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4='
+  },
+  {
+    id: 'outshined',
+    title: 'Outshined',
+    artist: 'Soundgarden',
+    album: 'Badmotorfinger',
+    cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4='
+  }
+];
+
+const FuturisticTurntable = () => {
+  const [selectedSong, setSelectedSong] = useState<Song>(songList[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [rotation, setRotation] = useState(0);
+  const animationRef = useRef<number>();
+  const discRef = useRef<HTMLDivElement>(null);
+  const armRef = useRef<HTMLDivElement>(null);
+
+  // Efeito para controlar a rotação do disco
+  useEffect(() => {
+    if (isPlaying) {
+      let lastTime = 0;
+      
+      const animate = (time: number) => {
+        if (lastTime === 0) {
+          lastTime = time;
+        }
+        
+        const deltaTime = time - lastTime;
+        lastTime = time;
+        
+        // Rotação do disco (33 RPM)
+        setRotation(prev => prev + deltaTime * 0.02);
+        
+        animationRef.current = requestAnimationFrame(animate);
+      };
+      
+      animationRef.current = requestAnimationFrame(animate);
+      
+      // Animar o braço do toca-discos
+      if (armRef.current) {
+        armRef.current.style.transform = 'rotate(25deg)';
+      }
+    } else {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      
+      // Retornar o braço quando parar
+      if (armRef.current) {
+        armRef.current.style.transform = 'rotate(0deg)';
+      }
+    }
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPlaying]);
+
+  // Função para alternar entre play/pause
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  // Função para selecionar uma música
+  const selectSong = (song: Song) => {
+    if (selectedSong.id === song.id) {
+      togglePlay();
+    } else {
+      setIsPlaying(false);
+      setTimeout(() => {
+        setSelectedSong(song);
+        setIsPlaying(true);
+      }, 500);
+    }
+  };
+
+  return (
+    <div className="w-full relative">
+      {/* Toca-discos */}
+      <div className="relative bg-mono-deeper border border-mono-white/20 rounded-lg p-6 w-full aspect-square max-w-md mx-auto shadow-[0_0_30px_rgba(255,255,255,0.05)] backdrop-blur-md">
+        {/* Base giratória */}
+        <div className="relative w-full aspect-square bg-mono-black rounded-full border border-mono-white/10 flex items-center justify-center overflow-hidden">
+          {/* Prato giratório */}
+          <div 
+            className="absolute w-[95%] h-[95%] rounded-full bg-gradient-to-br from-mono-deeper to-mono-black border border-mono-white/5"
+            style={{
+              boxShadow: "inset 0 0 20px rgba(255, 255, 255, 0.05), 0 5px 15px rgba(0, 0, 0, 0.5)"
+            }}
+          >
+            {/* Marcações do prato */}
+            <div className="absolute inset-0 rounded-full" 
+              style={{
+                background: "repeating-conic-gradient(rgba(255,255,255,0.03) 0deg 1deg, transparent 1deg 10deg)"
+              }}
+            ></div>
+            
+            {/* Eixo central */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-mono-medium z-30"></div>
+          </div>
+          
+          {/* Disco de vinil */}
+          <div 
+            ref={discRef}
+            style={{
+              transform: `rotate(${rotation}deg)`,
+              transition: isPlaying ? "none" : "transform 1s ease-out"
+            }}
+            className="absolute w-[75%] h-[75%] rounded-full bg-mono-black border border-mono-white/10 flex items-center justify-center"
+          >
+            {/* Ranhuras do disco */}
+            <div className="absolute inset-0 rounded-full" 
+              style={{
+                background: "repeating-radial-gradient(rgba(255,255,255,0.05) 0px 1px, transparent 1px 3px)"
+              }}
+            ></div>
+            
+            {/* Etiqueta central do disco */}
+            <div className="absolute w-[40%] h-[40%] rounded-full flex items-center justify-center overflow-hidden border border-mono-white/20">
+              <img 
+                src={selectedSong.cover} 
+                alt={`${selectedSong.album} by ${selectedSong.artist}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Braço do toca-discos */}
+        <div className="absolute top-6 right-12 h-[55%] w-4 flex flex-col items-center">
+          <div className="w-8 h-8 rounded-full bg-mono-medium"></div>
+          <div 
+            ref={armRef}
+            className="relative w-3 h-[calc(100%-8px)] bg-gradient-to-b from-mono-medium to-mono-deeper origin-top transition-transform duration-1000"
+            style={{ transform: isPlaying ? 'rotate(25deg)' : 'rotate(0deg)' }}
+          >
+            <div className="absolute -right-1 bottom-0 w-6 h-3 bg-mono-medium"></div>
+          </div>
+        </div>
+        
+        {/* Controles */}
+        <div className="absolute bottom-6 left-6 right-6 flex justify-between">
+          <button 
+            onClick={togglePlay}
+            className="w-12 h-12 rounded-full bg-mono-white flex items-center justify-center text-mono-black hover:bg-mono-light transition-colors"
+          >
+            <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-play'}`}></i>
+          </button>
+          
+          {/* Efeito visual de reprodução */}
+          {isPlaying && (
+            <div className="flex space-x-1 items-center">
+              {[1, 2, 3, 4].map((i) => (
+                <div 
+                  key={i}
+                  className="w-1 bg-mono-white/70 rounded-full animate-pulse"
+                  style={{ 
+                    height: `${1 + Math.random() * 2}rem`,
+                    animationDelay: `${i * 0.1}s`
+                  }}
+                ></div>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* HUD futurista com informações da música */}
+        <div className="absolute -bottom-16 -left-3 -right-3 bg-mono-deeper border border-mono-white/20 rounded-lg p-4 backdrop-blur-md">
+          <div className="flex justify-between items-center">
+            <div>
+              <div className="text-mono-white font-future text-lg truncate">{selectedSong.title}</div>
+              <div className="text-mono-medium text-sm">{selectedSong.artist} - {selectedSong.album}</div>
+            </div>
+            <div className="flex items-center space-x-1">
+              {isPlaying && (
+                <>
+                  <div className="w-2 h-2 rounded-full bg-mono-white animate-pulse"></div>
+                  <span className="text-mono-medium text-xs">PLAYING</span>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Lista de músicas */}
+      <div className="mt-20 bg-mono-deeper/80 border border-mono-white/20 rounded-lg p-4 max-w-md mx-auto backdrop-blur-md">
+        <h3 className="text-mono-white font-future text-lg mb-4 text-center border-b border-mono-white/10 pb-2">PLAYLIST</h3>
+        <ul className="space-y-2">
+          {songList.map((song) => (
+            <li 
+              key={song.id}
+              onClick={() => selectSong(song)}
+              className={`flex items-center p-2 cursor-pointer transition-all duration-300 ${
+                selectedSong.id === song.id 
+                  ? 'bg-mono-white/10 rounded-md border-l-4 border-mono-white pl-3' 
+                  : 'hover:bg-mono-white/5 rounded-md'
+              }`}
+            >
+              <div className="w-10 h-10 mr-3 rounded-md overflow-hidden flex-shrink-0 border border-mono-white/20">
+                <img src={song.cover} alt={song.album} className="w-full h-full object-cover" />
+              </div>
+              <div className="flex-grow min-w-0">
+                <div className="text-mono-white font-medium truncate">{song.title}</div>
+                <div className="text-mono-medium text-xs truncate">{song.artist}</div>
+              </div>
+              <div className="ml-2 flex-shrink-0">
+                {selectedSong.id === song.id && isPlaying ? (
+                  <div className="flex space-x-0.5">
+                    {[1, 2, 3].map(i => (
+                      <div 
+                        key={i} 
+                        className="w-0.5 h-3 bg-mono-white rounded-full animate-pulse" 
+                        style={{ animationDelay: `${i * 0.2}s` }}
+                      ></div>
+                    ))}
+                  </div>
+                ) : (
+                  <button className="text-mono-white hover:text-mono-light w-6 h-6 flex items-center justify-center rounded-full">
+                    <i className="fas fa-play text-xs"></i>
+                  </button>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default FuturisticTurntable;
