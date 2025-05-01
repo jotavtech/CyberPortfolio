@@ -75,19 +75,15 @@ const EnergyParticles = ({ skillColor }: { skillColor: string }) => {
     const particlesArray: Particle[] = [];
     const numberOfParticles = 30;
     
-    // Definir cores baseadas no skillColor
-    let particleColor = 'hsl(180, 100%, 60%)'; // Padrão azul neon
+    // Definir cores baseadas no skillColor (agora em escala monocromática)
+    let particleColor = 'hsl(0, 0%, 100%)'; // Branco
     
-    if (skillColor === 'neon-pink') {
-      particleColor = 'hsl(300, 100%, 60%)';
-    } else if (skillColor === 'neon-green') {
-      particleColor = 'hsl(120, 100%, 60%)';
-    } else if (skillColor === 'neon-yellow') {
-      particleColor = 'hsl(60, 100%, 60%)';
-    } else if (skillColor === 'digital-orange') {
-      particleColor = 'hsl(25, 100%, 60%)';
-    } else if (skillColor === 'electric-purple') {
-      particleColor = 'hsl(280, 100%, 60%)';
+    if (skillColor === 'neon-pink' || skillColor === 'digital-orange') {
+      particleColor = 'hsl(0, 0%, 100%)'; // Branco
+    } else if (skillColor === 'neon-green' || skillColor === 'neon-yellow') {
+      particleColor = 'hsl(0, 0%, 90%)'; // Cinza claro
+    } else if (skillColor === 'neon-blue' || skillColor === 'electric-purple') {
+      particleColor = 'hsl(0, 0%, 80%)'; // Cinza médio
     }
     
     for (let i = 0; i < numberOfParticles; i++) {
@@ -229,40 +225,40 @@ const SkillsSection = () => {
 
   // Skeleton loader animation for cards
   const SkillCardSkeleton = () => (
-    <div className="skills-card border bg-gradient-to-b from-brand-dark to-brand-black/90 border-brand-gray/30 p-8 rounded-sm animate-pulse absolute w-full">
+    <div className="skills-card border bg-gradient-to-b from-mono-deeper to-mono-black/90 border-mono-medium/30 p-8 rounded-sm animate-pulse absolute w-full">
       <div className="flex items-center mb-6">
-        <div className="h-8 w-8 bg-brand-red/20 rounded-sm mr-4"></div>
-        <div className="h-6 w-32 bg-brand-gray/20 rounded-sm"></div>
+        <div className="h-8 w-8 bg-mono-white/20 rounded-sm mr-4"></div>
+        <div className="h-6 w-32 bg-mono-medium/20 rounded-sm"></div>
       </div>
-      <div className="h-4 w-full bg-brand-gray/10 rounded-sm mb-6"></div>
+      <div className="h-4 w-full bg-mono-medium/10 rounded-sm mb-6"></div>
       <div className="space-y-3">
         <div className="flex items-center">
-          <div className="h-1.5 w-1.5 bg-brand-gray/20 rounded-full mr-3"></div>
-          <div className="h-4 w-full bg-brand-gray/10 rounded-sm"></div>
+          <div className="h-1.5 w-1.5 bg-mono-medium/20 rounded-full mr-3"></div>
+          <div className="h-4 w-full bg-mono-medium/10 rounded-sm"></div>
         </div>
         <div className="flex items-center">
-          <div className="h-1.5 w-1.5 bg-brand-gray/20 rounded-full mr-3"></div>
-          <div className="h-4 w-full bg-brand-gray/10 rounded-sm"></div>
+          <div className="h-1.5 w-1.5 bg-mono-medium/20 rounded-full mr-3"></div>
+          <div className="h-4 w-full bg-mono-medium/10 rounded-sm"></div>
         </div>
         <div className="flex items-center">
-          <div className="h-1.5 w-1.5 bg-brand-gray/20 rounded-full mr-3"></div>
-          <div className="h-4 w-full bg-brand-gray/10 rounded-sm"></div>
+          <div className="h-1.5 w-1.5 bg-mono-medium/20 rounded-full mr-3"></div>
+          <div className="h-4 w-full bg-mono-medium/10 rounded-sm"></div>
         </div>
       </div>
     </div>
   );
 
   return (
-    <section id="skills" className="py-24 relative bg-brand-black">
+    <section id="skills" className="py-24 relative bg-mono-black">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20">
           <div className="relative inline-block">
-            <h2 className="font-future text-3xl md:text-4xl text-brand-white mb-4 tracking-wide">
+            <h2 className="font-future text-3xl md:text-4xl text-mono-white mb-4 tracking-wide">
               <HighlightText text="EXPERTISE & SKILLS" highlight="gradient" />
             </h2>
-            <div className="h-1 w-16 bg-brand-red absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
+            <div className="h-1 w-16 bg-mono-white absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
           </div>
-          <p className="text-brand-gray mt-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-mono-medium mt-8 max-w-2xl mx-auto leading-relaxed">
             Equipped with design-focused technical skills and experience to create modern, engaging digital experiences.
           </p>
         </div>
@@ -278,7 +274,7 @@ const SkillsSection = () => {
             </div>
           </div>
         ) : error ? (
-          <div className="text-center text-brand-red">
+          <div className="text-center text-mono-white">
             Failed to load skills. Please try again later.
           </div>
         ) : (
@@ -294,35 +290,32 @@ const SkillsSection = () => {
                 {skills?.map((skill, index) => (
                   <div
                     key={skill.id}
-                    className={`skills-card absolute top-0 left-0 w-full p-8 rounded-sm border bg-gradient-to-b from-brand-dark to-brand-black/90
+                    className={`skills-card absolute top-0 left-0 w-full p-8 rounded-sm border bg-gradient-to-b from-mono-deeper to-mono-black/90
                       ${currentIndex === index ? 'animate-card-glow' : ''}
                       ${direction === 'next' && currentIndex === index ? 'animate-card-enter-right' : ''}
                       ${direction === 'prev' && currentIndex === index ? 'animate-card-enter-left' : ''}
                     `}
                     style={{
                       ...getCardStyle(index),
-                      borderColor: `hsl(var(--${skill.borderColor}))`
+                      borderColor: `hsl(var(--mono-white))`
                     }}
                   >
                     <div className="flex items-center mb-6">
-                      <div className={`text-3xl mr-4 transition-colors`} 
-                        style={{ color: `hsl(var(--${skill.iconColor}))` }}>
+                      <div className="text-3xl mr-4 transition-colors text-mono-white">
                         <i className={skill.icon}></i>
                       </div>
-                      <h3 className={`font-future text-xl transition-colors tracking-wider`} 
-                        style={{ color: `hsl(var(--${skill.titleColor}))` }}>
+                      <h3 className="font-future text-xl transition-colors tracking-wider text-mono-white">
                         {skill.title}
                       </h3>
                     </div>
                     
-                    <p className="text-brand-gray mb-6 leading-relaxed">{skill.description}</p>
+                    <p className="text-mono-medium mb-6 leading-relaxed">{skill.description}</p>
                     
                     <ul className="space-y-3">
                       {skill.items.map((item, idx) => (
-                        <li key={idx} className="flex items-center text-brand-light">
+                        <li key={idx} className="flex items-center text-mono-light">
                           <span 
-                            className={`inline-block w-1.5 h-1.5 mr-3 rounded-full`}
-                            style={{ backgroundColor: `hsl(var(--${item.bulletColor}))` }}
+                            className="inline-block w-1.5 h-1.5 mr-3 rounded-full bg-mono-white"
                           ></span>
                           {item.text}
                         </li>
@@ -337,7 +330,7 @@ const SkillsSection = () => {
                 <button
                   onClick={goToPrevCard}
                   disabled={isAnimating}
-                  className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-brand-gray text-brand-gray hover:bg-brand-red hover:border-brand-red hover:text-brand-white transition-colors disabled:opacity-50 active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-mono-medium text-mono-medium hover:bg-mono-white hover:border-mono-white hover:text-mono-black transition-colors disabled:opacity-50 active:scale-95"
                   aria-label="Previous skill"
                 >
                   <i className="fas fa-chevron-left"></i>
@@ -362,8 +355,8 @@ const SkillsSection = () => {
                       disabled={isAnimating || currentIndex === idx}
                       className={`w-2.5 h-2.5 rounded-sm transition-all duration-300 ${
                         currentIndex === idx 
-                          ? 'bg-brand-red scale-125' 
-                          : 'bg-brand-gray hover:bg-brand-gray/80'
+                          ? 'bg-mono-white scale-125' 
+                          : 'bg-mono-medium hover:bg-mono-light'
                       }`}
                       aria-label={`Go to skill ${idx + 1}`}
                     ></button>
@@ -373,7 +366,7 @@ const SkillsSection = () => {
                 <button
                   onClick={goToNextCard}
                   disabled={isAnimating}
-                  className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-brand-gray text-brand-gray hover:bg-brand-red hover:border-brand-red hover:text-brand-white transition-colors disabled:opacity-50 active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-mono-medium text-mono-medium hover:bg-mono-white hover:border-mono-white hover:text-mono-black transition-colors disabled:opacity-50 active:scale-95"
                   aria-label="Next skill"
                 >
                   <i className="fas fa-chevron-right"></i>
@@ -386,7 +379,7 @@ const SkillsSection = () => {
         <div className="mt-32 text-center">
           <a 
             href="#contact" 
-            className="inline-block bg-brand-red text-brand-white px-8 py-3 font-future tracking-wider hover:bg-brand-gold hover:text-brand-black transition-colors duration-300 button-highlight"
+            className="inline-block bg-mono-white text-mono-black px-8 py-3 font-future tracking-wider hover:bg-mono-medium hover:text-mono-black transition-colors duration-300 button-highlight"
           >
             WORK TOGETHER <i className="fas fa-arrow-right ml-2"></i>
           </a>
@@ -395,7 +388,7 @@ const SkillsSection = () => {
       
       {/* Background subtle pattern */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
-        <div className="h-full w-full bg-gradient-to-b from-transparent to-brand-red/10"></div>
+        <div className="h-full w-full bg-gradient-to-b from-transparent to-mono-white/10"></div>
       </div>
     </section>
   );
