@@ -11,7 +11,7 @@ interface Song {
   audioUrl: string;
 }
 
-// Lista de músicas utilizando arquivos de acesso público
+// Lista de músicas utilizando arquivos locais
 const songList: Song[] = [
   {
     id: 'around-the-world',
@@ -19,7 +19,7 @@ const songList: Song[] = [
     artist: 'Red Hot Chili Peppers',
     album: 'Californication',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: 'https://ia600302.us.archive.org/26/items/amazing-grace_202005/amazing-grace.mp3'
+    audioUrl: '/audio/song1.wav'
   },
   {
     id: 'what-you-are',
@@ -27,7 +27,7 @@ const songList: Song[] = [
     artist: 'Audioslave',
     album: 'Audioslave',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: 'https://ia800304.us.archive.org/19/items/cd_hey-jude_the-beatles/disc1/14.%20The%20Beatles%20-%20Across%20the%20Universe_sample.mp3'
+    audioUrl: '/audio/song2.wav'
   },
   {
     id: 'outshined',
@@ -35,7 +35,7 @@ const songList: Song[] = [
     artist: 'Soundgarden',
     album: 'Badmotorfinger',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=',
-    audioUrl: 'https://ia800107.us.archive.org/15/items/cd_the-jazz-giants-play-cole-porter_ben-webster-coleman-hawkins-buddy-rich-har/disc1/03.%20Ben%20Webster%2C%20Coleman%20Hawkins%2C%20Buddy%20Rich%2C%20Harry%20Edison%2C%20Hank%20Jones%2C%20Ray%20Brown%20-%20Embraceable%20You_sample.mp3'
+    audioUrl: '/audio/song3.wav'
   }
 ];
 
