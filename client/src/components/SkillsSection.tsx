@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect, useRef } from 'react';
 import HighlightText from '@/components/ui/glitch-text';
-import { Skill } from '@shared/schema';
+import { Skill } from '../types';
+import { skills as mockSkills } from '../data/mockData';
 
 // Componente de partículas de energia
 const EnergyParticles = ({ skillColor }: { skillColor: string }) => {
@@ -147,9 +147,10 @@ const EnergyParticles = ({ skillColor }: { skillColor: string }) => {
 };
 
 const SkillsSection = () => {
-  const { data: skills, isLoading, error } = useQuery<Skill[]>({
-    queryKey: ['/api/skills'],
-  });
+  // Usando dados locais em vez de consultar a API
+  const skills = mockSkills;
+  const isLoading = false;
+  const error = null;
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<'next' | 'prev' | null>(null);
@@ -382,10 +383,8 @@ const SkillsSection = () => {
                         }, 500);
                       }}
                       disabled={isAnimating || currentIndex === idx}
-                      className={`w-2.5 h-2.5 rounded-sm transition-all duration-300 ${
-                        currentIndex === idx 
-                          ? 'bg-mono-white scale-125' 
-                          : 'bg-mono-medium hover:bg-mono-light'
+                      className={`w-2.5 h-2.5 rounded-sm transition-colors ${
+                        currentIndex === idx ? 'bg-mono-white' : 'bg-mono-medium opacity-50 hover:opacity-75'
                       }`}
                       aria-label={`Ir para habilidade ${idx + 1}`}
                     ></button>
@@ -404,30 +403,6 @@ const SkillsSection = () => {
             </div>
           </div>
         )}
-        
-        <div className="mt-32 text-center">
-          <a 
-            href="#contact" 
-            onClick={(e) => {
-              e.preventDefault();
-              const element = document.querySelector('#contact');
-              if (element) {
-                window.scrollTo({
-                  top: element.getBoundingClientRect().top + window.scrollY - 80,
-                  behavior: 'smooth'
-                });
-              }
-            }}
-            className="inline-block bg-mono-white text-mono-black px-8 py-3 font-future tracking-wider hover:bg-mono-medium hover:text-mono-black transition-colors duration-300 button-highlight"
-          >
-            TRABALHE COMIGO <i className="fas fa-arrow-right ml-2"></i>
-          </a>
-        </div>
-      </div>
-      
-      {/* Padrão de fundo sutil */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
-        <div className="h-full w-full bg-gradient-to-b from-transparent to-mono-white/10"></div>
       </div>
     </section>
   );

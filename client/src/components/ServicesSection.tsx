@@ -1,189 +1,182 @@
-import { useQuery } from '@tanstack/react-query';
-import GlitchText from '@/components/ui/glitch-text';
-import { Service } from '@shared/schema';
 import { useRef, useEffect } from 'react';
+import HighlightText from '@/components/ui/glitch-text';
+import { Service } from '../types';
+import { services as mockServices } from '../data/mockData';
 
 const ServicesSection = () => {
-  const { data: services, isLoading, error } = useQuery<Service[]>({
-    queryKey: ['/api/services'],
-  });
+  // Usando dados locais em vez de consultar a API
+  const services = mockServices;
+  const isLoading = false;
+  const error = null;
   
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   
-  // Efeito para adicionar destaque em cards ao rolar a página
+  // Animação de fade-in nos cards de serviços
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('card-visible');
+            const cards = sectionRef.current?.querySelectorAll('.service-card');
+            cards?.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('fade-in');
+              }, 100 * index);
+            });
+            observer.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.2 }
     );
     
-    const cards = document.querySelectorAll('.service-card');
-    cards.forEach((card) => observer.observe(card));
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
     
     return () => {
-      cards.forEach((card) => observer.unobserve(card));
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
     };
   }, [services]);
 
-  // Função para rolagem suave
-  const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
-    e.preventDefault();
-    const element = document.querySelector(target);
-    if (element) {
-      window.scrollTo({
-        top: element.getBoundingClientRect().top + window.scrollY - 80,
-        behavior: 'smooth'
-      });
-    }
+  // Animação de hover para os cards
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+  
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
   };
 
+  // Animação de carregamento skeleton para os cards
+  const ServiceCardSkeleton = () => (
+    <div className="bg-mono-deeper border border-mono-medium/20 rounded-sm p-8 animate-pulse h-full">
+      <div className="flex items-center mb-6">
+        <div className="h-10 w-10 bg-mono-medium/20 rounded-sm mr-4"></div>
+        <div className="h-6 w-40 bg-mono-medium/20 rounded-sm"></div>
+      </div>
+      <div className="h-4 w-full bg-mono-medium/10 rounded-sm mb-8"></div>
+      <div className="space-y-3">
+        <div className="flex items-center">
+          <div className="h-4 w-4 bg-mono-medium/20 rounded-sm mr-3"></div>
+          <div className="h-4 w-full bg-mono-medium/10 rounded-sm"></div>
+        </div>
+        <div className="flex items-center">
+          <div className="h-4 w-4 bg-mono-medium/20 rounded-sm mr-3"></div>
+          <div className="h-4 w-full bg-mono-medium/10 rounded-sm"></div>
+        </div>
+        <div className="flex items-center">
+          <div className="h-4 w-4 bg-mono-medium/20 rounded-sm mr-3"></div>
+          <div className="h-4 w-full bg-mono-medium/10 rounded-sm"></div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <section id="services" ref={sectionRef} className="py-24 relative bg-mono-black">
+    <section id="services" className="py-24 relative" ref={sectionRef}>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-pixel text-3xl md:text-5xl text-mono-white mb-4">
-            <GlitchText text="SERVIÇOS DIGITAIS" highlight="gradient" />
-          </h2>
-          <div className="h-1 w-24 bg-mono-white mx-auto"></div>
-          <p className="text-mono-medium mt-6 max-w-2xl mx-auto text-lg">
-            Transformando ideias em realidade digital com tecnologia de ponta e design criativo.
+        <div className="text-center mb-20">
+          <div className="relative inline-block">
+            <h2 className="font-future text-3xl md:text-4xl text-mono-white mb-4 tracking-wide">
+              <HighlightText text="SERVIÇOS DIGITAIS" highlight="gradient" />
+            </h2>
+            <div className="h-1 w-16 bg-mono-white absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
+          </div>
+          <p className="text-mono-medium mt-8 max-w-2xl mx-auto leading-relaxed">
+            Oferecendo soluções digitais completas que combinam design estético com funcionalidade e performance.
           </p>
         </div>
         
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="relative overflow-hidden rounded-xl p-8 border border-mono-white/20 bg-mono-black/80 animate-pulse">
-                <div className="h-12 w-12 bg-mono-white/30 rounded-full mb-6"></div>
-                <div className="h-8 w-48 bg-mono-white/30 rounded mb-4"></div>
-                <div className="h-20 w-full bg-mono-white/10 rounded mb-6"></div>
-                <div className="space-y-3 mb-8">
-                  <div className="h-4 w-full bg-mono-white/10 rounded"></div>
-                  <div className="h-4 w-full bg-mono-white/10 rounded"></div>
-                  <div className="h-4 w-full bg-mono-white/10 rounded"></div>
-                </div>
-                <div className="h-10 w-40 bg-mono-white/30 rounded"></div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[1, 2, 3, 4].map(i => (
+              <ServiceCardSkeleton key={i} />
             ))}
           </div>
         ) : error ? (
-          <div className="text-center text-mono-white p-10 bg-mono-black/30 border border-mono-white/20 rounded-xl backdrop-blur-sm">
-            Não foi possível carregar os serviços. Por favor, tente novamente mais tarde.
+          <div className="text-center text-mono-white">
+            Falha ao carregar serviços. Por favor, tente novamente mais tarde.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {services?.map((service, index) => (
-              <div 
-                key={service.id} 
-                className={`service-card group relative overflow-hidden rounded-xl p-8 border-2 border-mono-white/30 bg-mono-black/80 
-                  backdrop-blur-md transition-all duration-500 hover:border-mono-white hover:shadow-[0_0_25px_rgba(255,255,255,0.1)] 
-                  opacity-0 translate-y-10 delay-${index * 100}`}
-                style={{animationDelay: `${index * 0.1}s`}}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+            {services?.map(service => (
+              <div
+                key={service.id}
+                className="service-card bg-gradient-to-b from-mono-deeper/90 to-mono-black border border-mono-white/10 rounded-sm p-8 flex flex-col h-full transform-gpu transition-all duration-500 opacity-0 translate-y-10 shadow-xl backdrop-blur-sm hover:border-mono-white/30"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
               >
-                {/* Elemento decorativo 1 */}
-                <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-mono-white/5 rounded-full 
-                  group-hover:bg-mono-white/10 group-hover:scale-110 transition-all duration-700"></div>
-                
-                {/* Elemento decorativo 2 */}
-                <div className="absolute -top-32 -left-32 w-64 h-64 bg-mono-white/3 rounded-full 
-                  group-hover:bg-mono-white/8 group-hover:scale-110 transition-all duration-700"></div>
-                
-                <div className="relative z-10">
-                  {/* Ícone com destaque */}
-                  <div className="text-5xl text-mono-white mb-6 transform group-hover:scale-110 transition-transform duration-300
-                    p-4 inline-block rounded-full bg-mono-deeper/80 group-hover:bg-mono-deeper border border-mono-white/20">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4 text-mono-white">
                     <i className={service.icon}></i>
                   </div>
-                  
-                  {/* Título com efeito de destaque */}
-                  <h3 className="font-future text-2xl text-mono-white mb-4 group-hover:text-mono-white transition-colors relative">
-                    {service.title}
-                    <span className="block h-1 w-12 bg-mono-white/50 mt-2 group-hover:w-full transition-all duration-300"></span>
+                  <h3 className="font-future text-xl text-mono-white tracking-wide">
+                    {/* Tradução dinâmica dos títulos */}
+                    {service.title === "Frontend Development" ? "Desenvolvimento Frontend" :
+                      service.title === "UI/UX Design" ? "Design de UI/UX" :
+                      service.title === "Mobile App Development" ? "Desenvolvimento Mobile" :
+                      service.title === "Creative Web Experiences" ? "Experiências Web Criativas" :
+                      service.title}
                   </h3>
-                  
-                  {/* Descrição com melhor legibilidade */}
-                  <p className="text-mono-medium mb-6 leading-relaxed text-lg">{service.description}</p>
-                  
-                  {/* Lista de características com animação */}
-                  <ul className="space-y-3 mb-8">
-                    {service.features.map((feature, index) => (
-                      <li key={index} className="flex items-center group-hover:translate-x-1 transition-transform" 
-                          style={{transitionDelay: `${index * 0.05}s`}}>
-                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-mono-white/10 mr-3 group-hover:bg-mono-white/20 transition-colors">
-                          <i className="fas fa-check text-mono-white text-xs"></i>
-                        </span>
-                        <span className="text-mono-light">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  {/* Botão com destaque */}
-                  <a 
-                    href="#contact"
-                    onClick={(e) => smoothScroll(e, '#contact')} 
-                    className="inline-flex items-center justify-center px-6 py-3 border border-mono-white/30 
-                      text-mono-white hover:bg-mono-white hover:text-mono-black transition-all 
-                      duration-300 group-hover:border-mono-white"
-                  >
-                    <span className="mr-2">Iniciar projeto</span>
-                    <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                  </a>
                 </div>
+                
+                <p className="text-mono-medium mb-8 leading-relaxed">
+                  {/* Tradução dinâmica das descrições */}
+                  {service.description.includes("Creating responsive") ? 
+                    "Criando interfaces web responsivas e interativas com frameworks modernos e performance otimizada." :
+                   service.description.includes("Crafting beautiful") ? 
+                    "Elaborando interfaces de usuário bonitas e experiências que engajam usuários e atendem objetivos de negócio." :
+                   service.description.includes("Building cross-platform") ? 
+                    "Construindo aplicativos mobile multiplataforma com performance e experiência de usuário nativas." :
+                   service.description.includes("Developing immersive") ? 
+                    "Desenvolvendo experiências web imersivas com tecnologias avançadas de animação e interação." :
+                   service.description}
+                </p>
+                
+                <ul className="space-y-3 mt-auto">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-mono-white mr-3 mt-1">
+                        <i className="fas fa-check text-xs"></i>
+                      </span>
+                      <span className="text-mono-light">
+                        {/* Tradução dinâmica dos recursos */}
+                        {feature.includes("React & Vue") ? "React & Vue.js" :
+                         feature.includes("Responsive UIs") ? "Interfaces responsivas" :
+                         feature.includes("Performance") ? "Otimização de performance" :
+                         feature.includes("User research") ? "Pesquisa de usuários" :
+                         feature.includes("Wireframing") ? "Wireframing e protótipos" :
+                         feature.includes("Visual design") ? "Design visual" :
+                         feature.includes("React Native") ? "React Native & Expo" :
+                         feature.includes("Native UI") ? "Componentes UI nativos" :
+                         feature.includes("App store") ? "Submissão para app stores" :
+                         feature.includes("WebGL") ? "WebGL & Three.js" :
+                         feature.includes("Advanced animations") ? "Animações avançadas" :
+                         feature.includes("Interactive") ? "Storytelling interativo" :
+                         feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         )}
-        
-        {/* CTA Banner mais chamativo */}
-        <div className="mt-24 relative overflow-hidden rounded-xl border-2 border-mono-white/40 
-          bg-gradient-to-r from-mono-deeper to-mono-black p-10 md:p-14 
-          shadow-[0_0_30px_rgba(255,255,255,0.05)] backdrop-blur-md">
-          
-          {/* Elementos decorativos */}
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-mono-white/5 rounded-full"></div>
-          <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-mono-white/5 rounded-full"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full 
-            bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)]"></div>
-          
-          <div className="relative z-10 text-center">
-            <h3 className="font-pixel text-2xl md:text-4xl text-mono-white mb-6">
-              PRONTO PARA DAR VIDA À SUA VISÃO?
-            </h3>
-            <p className="text-mono-medium mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
-              Vamos colaborar na criação de uma experiência digital única que cativará seu público e elevará sua marca.
-            </p>
-            <a 
-              href="#contact"
-              onClick={(e) => smoothScroll(e, '#contact')} 
-              className="inline-flex items-center justify-center px-8 py-4 bg-mono-white text-mono-black font-future font-bold 
-                hover:bg-transparent hover:text-mono-white border-2 border-mono-white transition-all duration-300 
-                shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
-            >
-              ENTRE EM CONTATO AGORA <i className="fas fa-bolt ml-3"></i>
-            </a>
-          </div>
-        </div>
       </div>
-      
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNGRkZGRkYiIGZpbGwtb3BhY2l0eT0iMC4wMiI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHYtMXptMC0yaC00djFoNHYtMXptLTYgM2gtNHYxaDR2LTF6TTQyIDMxaC00djFoNHYtMXptLTYtMmgtNHYxaDR2LTF6TTM0IDI5aC00djFoNHYtMXptLTIgMmgtNHYxaDR2LTF6bS04IDBIMjB2MWg0di0xem02LThIMjB2MWgxMHYtMXoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
-        
-        {/* Linhas de grade */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-        
-        {/* Brilho central sutil */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-96 
-          bg-[radial-gradient(circle,rgba(255,255,255,0.03)_0%,transparent_60%)]"></div>
-      </div>
-      
-      {/* CSS injetado diretamente no head via useEffect */}
     </section>
   );
 };

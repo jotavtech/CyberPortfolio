@@ -1,118 +1,141 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import GlitchText from '@/components/ui/glitch-text';
-import { Project } from '@shared/schema';
+import HighlightText from '@/components/ui/glitch-text';
+import { Project } from '../types';
+import { projects as mockProjects } from '../data/mockData';
 
 type ProjectCategory = 'all' | 'websites' | 'ui/ux' | 'mobile';
 
 const ProjectsSection = () => {
-  const [filter, setFilter] = useState<ProjectCategory>('all');
+  // Usando dados locais em vez de consultar a API
+  const projects = mockProjects;
+  const isLoading = false;
+  const error = null;
   
-  const { data: projects, isLoading, error } = useQuery<Project[]>({
-    queryKey: ['/api/projects'],
-  });
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('all');
+  
+  // Filtrar projetos por categoria
+  const filteredProjects = !projects
+    ? []
+    : activeCategory === 'all'
+    ? projects
+    : projects.filter(project => project.category === activeCategory);
 
-  const filteredProjects = projects?.filter(project => 
-    filter === 'all' || project.category === filter
-  );
+  // Função para fazer a tradução dinâmica das categorias
+  const translateCategory = (category: string) => {
+    switch (category) {
+      case 'all':
+        return 'Todos';
+      case 'websites':
+        return 'Websites';
+      case 'ui/ux':
+        return 'UI/UX';
+      case 'mobile':
+        return 'Mobile';
+      default:
+        return category;
+    }
+  };
 
   return (
-    <section id="projects" className="py-20 relative bg-deep-purple">
+    <section id="projects" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="font-pixel text-3xl md:text-4xl text-neon-yellow mb-4">
-            <GlitchText text="DIGITAL CREATIONS" />
-          </h2>
-          <div className="h-1 w-24 bg-neon-blue mx-auto"></div>
-          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
-            Explore a selection of my latest projects showcasing innovative design and technical expertise.
+          <div className="relative inline-block">
+            <h2 className="font-future text-3xl md:text-4xl text-mono-white mb-4 tracking-wide">
+              <HighlightText text="PROJETOS RECENTES" highlight="gradient" />
+            </h2>
+            <div className="h-1 w-16 bg-mono-white absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
+          </div>
+          <p className="text-mono-medium mt-8 max-w-2xl mx-auto leading-relaxed">
+            Uma seleção de trabalhos recentes em desenvolvimento web, design de interfaces e experiência do usuário.
           </p>
         </div>
         
-        {/* Project Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
-          <button 
-            className={`px-4 py-2 bg-cyber-black text-neon-blue border border-neon-blue rounded-md hover:bg-neon-blue hover:text-cyber-black transition-colors ${filter === 'all' ? 'bg-neon-blue text-cyber-black' : ''}`}
-            onClick={() => setFilter('all')}
-          >
-            All
-          </button>
-          <button 
-            className={`px-4 py-2 bg-cyber-black text-neon-pink border border-neon-pink rounded-md hover:bg-neon-pink hover:text-cyber-black transition-colors ${filter === 'websites' ? 'bg-neon-pink text-cyber-black' : ''}`}
-            onClick={() => setFilter('websites')}
-          >
-            Websites
-          </button>
-          <button 
-            className={`px-4 py-2 bg-cyber-black text-neon-green border border-neon-green rounded-md hover:bg-neon-green hover:text-cyber-black transition-colors ${filter === 'ui/ux' ? 'bg-neon-green text-cyber-black' : ''}`}
-            onClick={() => setFilter('ui/ux')}
-          >
-            UI/UX
-          </button>
-          <button 
-            className={`px-4 py-2 bg-cyber-black text-neon-yellow border border-neon-yellow rounded-md hover:bg-neon-yellow hover:text-cyber-black transition-colors ${filter === 'mobile' ? 'bg-neon-yellow text-cyber-black' : ''}`}
-            onClick={() => setFilter('mobile')}
-          >
-            Mobile
-          </button>
+        {/* Filtros */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {['all', 'websites', 'ui/ux', 'mobile'].map(category => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category as ProjectCategory)}
+              className={`px-6 py-2 rounded-sm border transition-all hover:bg-mono-white hover:text-mono-black transform active:scale-95 ${
+                activeCategory === category
+                  ? 'border-mono-white text-mono-white'
+                  : 'border-mono-medium text-mono-medium'
+              }`}
+            >
+              {translateCategory(category)}
+            </button>
+          ))}
         </div>
         
-        {/* Projects Grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="relative rounded-lg border-2 border-neon-blue overflow-hidden h-64 animate-pulse">
-                <div className="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent opacity-80 z-10"></div>
-                <div className="w-full h-full bg-deep-purple/40"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
-                  <div className="h-6 w-32 bg-neon-blue/30 rounded mb-2"></div>
-                  <div className="h-4 w-48 bg-gray-400/30 rounded mb-3"></div>
-                  <div className="flex space-x-3">
-                    <div className="h-8 w-24 bg-neon-blue/20 rounded"></div>
-                    <div className="h-8 w-24 bg-neon-pink/20 rounded"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="bg-mono-deeper border border-mono-medium/20 rounded-sm overflow-hidden shadow-lg animate-pulse">
+                <div className="h-56 bg-mono-medium/10"></div>
+                <div className="p-6">
+                  <div className="h-6 bg-mono-medium/20 rounded-sm mb-4 w-2/3"></div>
+                  <div className="h-4 bg-mono-medium/10 rounded-sm mb-4"></div>
+                  <div className="h-4 bg-mono-medium/10 rounded-sm mb-6 w-5/6"></div>
+                  <div className="flex justify-between">
+                    <div className="h-10 w-28 bg-mono-medium/20 rounded-sm"></div>
+                    <div className="h-10 w-28 bg-mono-medium/10 rounded-sm"></div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : error ? (
-          <div className="text-center text-neon-pink mb-10">
-            Failed to load projects. Please try again later.
+          <div className="text-center text-mono-white">
+            Falha ao carregar projetos. Por favor, tente novamente mais tarde.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {filteredProjects?.map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+            {filteredProjects.map(project => (
               <div 
-                key={project.id} 
-                className={`group relative overflow-hidden rounded-lg border-2 border-${project.borderColor} hover:border-neon-pink transition-colors duration-300`}
+                key={project.id}
+                className="bg-gradient-to-b from-mono-deeper to-mono-black border border-mono-white/10 rounded-sm overflow-hidden shadow-xl group transition-transform hover:-translate-y-2 backdrop-blur-sm"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent opacity-80 z-10"></div>
-                <img 
-                  src={project.imageUrl} 
-                  alt={project.title} 
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" 
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
-                  <h3 className={`font-future text-xl text-${project.titleColor} group-hover:text-neon-pink transition-colors`}>
+                <div className="relative h-56 overflow-hidden">
+                  <img 
+                    src={project.imageUrl} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-mono-black/70 to-transparent opacity-100"></div>
+                </div>
+                <div className="p-6 relative">
+                  <h3 
+                    className={`font-future text-xl mb-3 text-mono-white`}
+                  >
                     {project.title}
                   </h3>
-                  <p className="text-gray-300 text-sm mt-1 mb-3">{project.technologies}</p>
-                  <div className="flex space-x-3">
+                  <p className="text-mono-medium mb-4">
+                    {project.description}
+                  </p>
+                  <div className="text-mono-light text-sm mb-5">
+                    <span className="font-mono">
+                      {project.technologies}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
                     <a 
                       href={project.projectUrl} 
                       target="_blank" 
-                      rel="noreferrer" 
-                      className={`px-3 py-1 bg-${project.primaryBtnColor}/20 backdrop-blur-sm text-${project.primaryBtnColor} text-sm rounded border border-${project.primaryBtnColor} hover:bg-${project.primaryBtnColor} hover:text-cyber-black transition-colors`}
+                      rel="noopener noreferrer"
+                      className={`py-2 px-4 border border-mono-white/80 text-mono-white rounded-sm transition-all hover:bg-mono-white hover:text-mono-black transform active:scale-95 inline-flex items-center gap-2`}
                     >
-                      View Project
+                      <i className="fas fa-external-link-alt text-xs"></i>
+                      Ver Projeto
                     </a>
                     <a 
                       href={project.caseStudyUrl} 
                       target="_blank" 
-                      rel="noreferrer" 
-                      className={`px-3 py-1 bg-${project.secondaryBtnColor}/20 backdrop-blur-sm text-${project.secondaryBtnColor} text-sm rounded border border-${project.secondaryBtnColor} hover:bg-${project.secondaryBtnColor} hover:text-cyber-black transition-colors`}
+                      rel="noopener noreferrer"
+                      className={`py-2 px-4 border border-mono-medium/50 text-mono-medium rounded-sm transition-all hover:bg-mono-white hover:text-mono-black hover:border-mono-white transform active:scale-95 inline-flex items-center gap-2`}
                     >
-                      Case Study
+                      <i className="fas fa-file-alt text-xs"></i>
+                      Detalhes
                     </a>
                   </div>
                 </div>
@@ -120,20 +143,6 @@ const ProjectsSection = () => {
             ))}
           </div>
         )}
-        
-        <div className="text-center">
-          <a 
-            href="#contact" 
-            className="inline-block bg-neon-pink/20 backdrop-blur-md text-neon-pink px-6 py-3 font-future font-bold rounded border-2 border-neon-pink hover:bg-neon-pink hover:text-cyber-black transition-colors duration-300"
-          >
-            INTERESTED IN WORKING TOGETHER? <i className="fas fa-bolt ml-2"></i>
-          </a>
-        </div>
-      </div>
-      
-      {/* Background grid lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#FF00FF 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
       </div>
     </section>
   );
