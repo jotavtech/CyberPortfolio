@@ -242,20 +242,22 @@ const SkillsSection = () => {
   );
 
   return (
-    <section id="skills" className="py-20 relative bg-cyber-black">
+    <section id="skills" className="py-24 relative bg-brand-black">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-pixel text-3xl md:text-4xl text-neon-green mb-4">
-            <GlitchText text="TECH ARSENAL" />
-          </h2>
-          <div className="h-1 w-24 bg-neon-pink mx-auto"></div>
-          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
-            Equipped with a diverse set of cutting-edge tools and technologies to create immersive digital experiences.
+        <div className="text-center mb-20">
+          <div className="relative inline-block">
+            <h2 className="font-future text-3xl md:text-4xl text-brand-white mb-4 tracking-wide title-reveal">
+              <span>EXPERTISE & SKILLS</span>
+            </h2>
+            <div className="h-1 w-16 bg-brand-red absolute -bottom-2 left-1/2 transform -translate-x-1/2"></div>
+          </div>
+          <p className="text-brand-gray mt-8 max-w-2xl mx-auto leading-relaxed">
+            Equipped with design-focused technical skills and experience to create modern, engaging digital experiences.
           </p>
         </div>
         
         {isLoading ? (
-          <div className="relative h-[400px] md:h-[450px] w-full max-w-3xl mx-auto mt-12">
+          <div className="relative h-[400px] md:h-[450px] w-full max-w-3xl mx-auto mt-16">
             <div className="absolute inset-0 flex items-center justify-center">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="absolute" style={{ transform: `translateY(${i * 10}px)` }}>
@@ -265,11 +267,11 @@ const SkillsSection = () => {
             </div>
           </div>
         ) : error ? (
-          <div className="text-center text-neon-pink">
+          <div className="text-center text-brand-red">
             Failed to load skills. Please try again later.
           </div>
         ) : (
-          <div className="relative h-[400px] md:h-[450px] w-full max-w-3xl mx-auto mt-12">
+          <div className="relative h-[400px] md:h-[450px] w-full max-w-3xl mx-auto mt-16">
             {/* Efeito de partículas de energia com a cor do card atual */}
             {skills && skills[currentIndex] && (
               <EnergyParticles skillColor={skills[currentIndex].iconColor} />
@@ -281,7 +283,7 @@ const SkillsSection = () => {
                 {skills?.map((skill, index) => (
                   <div
                     key={skill.id}
-                    className={`skills-card card-3d absolute top-0 left-0 w-full p-6 rounded-lg border-2 bg-gradient-to-br from-deep-purple/80 to-cyber-black
+                    className={`skills-card absolute top-0 left-0 w-full p-8 rounded-sm border bg-gradient-to-b from-brand-dark to-brand-black/90
                       ${currentIndex === index ? 'animate-card-glow' : ''}
                       ${direction === 'next' && currentIndex === index ? 'animate-card-enter-right' : ''}
                       ${direction === 'prev' && currentIndex === index ? 'animate-card-enter-left' : ''}
@@ -291,18 +293,24 @@ const SkillsSection = () => {
                       borderColor: `hsl(var(--${skill.borderColor}))`
                     }}
                   >
-                    <div className={`text-4xl mb-4 transition-colors`} style={{ color: `hsl(var(--${skill.iconColor}))` }}>
-                      <i className={skill.icon}></i>
+                    <div className="flex items-center mb-6">
+                      <div className={`text-3xl mr-4 transition-colors`} 
+                        style={{ color: `hsl(var(--${skill.iconColor}))` }}>
+                        <i className={skill.icon}></i>
+                      </div>
+                      <h3 className={`font-future text-xl transition-colors tracking-wider`} 
+                        style={{ color: `hsl(var(--${skill.titleColor}))` }}>
+                        {skill.title}
+                      </h3>
                     </div>
-                    <h3 className={`font-future text-xl mb-2 transition-colors`} style={{ color: `hsl(var(--${skill.titleColor}))` }}>
-                      {skill.title}
-                    </h3>
-                    <p className="text-gray-300 mb-4">{skill.description}</p>
-                    <ul className="space-y-2 text-sm">
+                    
+                    <p className="text-brand-gray mb-6 leading-relaxed">{skill.description}</p>
+                    
+                    <ul className="space-y-3">
                       {skill.items.map((item, idx) => (
-                        <li key={idx} className="flex items-center">
+                        <li key={idx} className="flex items-center text-brand-light">
                           <span 
-                            className={`inline-block w-2 h-2 mr-2 rounded-full`}
+                            className={`inline-block w-1.5 h-1.5 mr-3 rounded-full`}
                             style={{ backgroundColor: `hsl(var(--${item.bulletColor}))` }}
                           ></span>
                           {item.text}
@@ -314,11 +322,11 @@ const SkillsSection = () => {
               </div>
 
               {/* Navigation buttons */}
-              <div className="absolute bottom-[-60px] left-0 right-0 flex justify-center items-center gap-8">
+              <div className="absolute bottom-[-60px] left-0 right-0 flex justify-center items-center gap-10">
                 <button
                   onClick={goToPrevCard}
                   disabled={isAnimating}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-cyber-black border-2 border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-cyber-black transition-colors disabled:opacity-50 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-brand-gray text-brand-gray hover:bg-brand-red hover:border-brand-red hover:text-brand-white transition-colors disabled:opacity-50 active:scale-95"
                   aria-label="Previous skill"
                 >
                   <i className="fas fa-chevron-left"></i>
@@ -341,10 +349,10 @@ const SkillsSection = () => {
                         }, 500);
                       }}
                       disabled={isAnimating || currentIndex === idx}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      className={`w-2.5 h-2.5 rounded-sm transition-all duration-300 ${
                         currentIndex === idx 
-                          ? 'bg-neon-pink scale-125 shadow-[0_0_10px_rgba(255,0,255,0.5)]' 
-                          : 'bg-gray-700 hover:bg-gray-500'
+                          ? 'bg-brand-red scale-125' 
+                          : 'bg-brand-gray hover:bg-brand-gray/80'
                       }`}
                       aria-label={`Go to skill ${idx + 1}`}
                     ></button>
@@ -354,7 +362,7 @@ const SkillsSection = () => {
                 <button
                   onClick={goToNextCard}
                   disabled={isAnimating}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-cyber-black border-2 border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-cyber-black transition-colors disabled:opacity-50 hover:shadow-[0_0_15px_rgba(255,0,255,0.5)] active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-sm bg-transparent border border-brand-gray text-brand-gray hover:bg-brand-red hover:border-brand-red hover:text-brand-white transition-colors disabled:opacity-50 active:scale-95"
                   aria-label="Next skill"
                 >
                   <i className="fas fa-chevron-right"></i>
@@ -364,19 +372,19 @@ const SkillsSection = () => {
           </div>
         )}
         
-        <div className="mt-24 text-center">
+        <div className="mt-32 text-center">
           <a 
             href="#contact" 
-            className="inline-block bg-neon-green text-cyber-black px-6 py-3 font-future font-bold rounded hover:bg-neon-blue transition-colors duration-300"
+            className="inline-block bg-brand-red text-brand-white px-8 py-3 font-future tracking-wider hover:bg-brand-gold hover:text-brand-black transition-colors duration-300 button-highlight"
           >
-            WORK WITH ME <i className="fas fa-arrow-right ml-2"></i>
+            WORK TOGETHER <i className="fas fa-arrow-right ml-2"></i>
           </a>
         </div>
       </div>
       
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-        <div className="h-full w-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSIxMDAiPgo8cmVjdCB3aWR0aD0iNTYiIGhlaWdodD0iMTAwIiBmaWxsPSIjMEQwRDBEIj48L3JlY3Q+CjxwYXRoIGQ9Ik0yOCA2NkwwIDUwTDAgMTZMMjggMEw1NiAxNkw1NiA1MEwyOCA2NkwyOCAxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM5RkYxNCIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+CjxwYXRoIGQ9Ik0yOCAwTDI4IDY2TDU2IDUwTDU2IDE2TDI4IDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGMDBGRiIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+Cjwvc3ZnPg==')]"></div>
+      {/* Background subtle pattern */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
+        <div className="h-full w-full bg-gradient-to-b from-transparent to-brand-red/10"></div>
       </div>
     </section>
   );
