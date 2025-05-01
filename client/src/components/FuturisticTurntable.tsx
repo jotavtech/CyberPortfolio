@@ -11,7 +11,7 @@ interface Song {
   audioUrl: string;
 }
 
-// Lista de músicas utilizando arquivos locais
+// Lista de músicas utilizando arquivos MP3 locais
 const songList: Song[] = [
   {
     id: 'around-the-world',
@@ -19,7 +19,7 @@ const songList: Song[] = [
     artist: 'Red Hot Chili Peppers',
     album: 'Californication',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTgwLDY1IEwyNSw2NSBMMjUsMTM1IEw4MCwxMzUgTDgwLDExNSBMMTEwLDEzNSBMMTEwLDY1IEw4MCw4NSBMODAsNjUgWiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjEwMCIgcj0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: '/audio/song1.wav'
+    audioUrl: '/mp3/song1.mp3'
   },
   {
     id: 'what-you-are',
@@ -27,7 +27,7 @@ const songList: Song[] = [
     artist: 'Audioslave',
     album: 'Audioslave',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTEwMCw2MCBBNDAsNDAgMCAwIDEgMTQwLDEwMCBBNDAsNDAgMCAwIDEgMTAwLDE0MCBBNDAsNDAgMCAwIDEgNjAsMTAwIEw4MCwxMDAgQTIwLDIwIDAgMCAwIDEwMCw4MCBBMjAsMjAgMCAwIDAgMTIwLDEwMCBBMjAsMjAgMCAwIDAgMTAwLDEyMCBBMjAsMjAgMCAwIDAgODAsMTAwIHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=',
-    audioUrl: '/audio/song2.wav'
+    audioUrl: '/mp3/song2.mp3'
   },
   {
     id: 'outshined',
@@ -35,7 +35,7 @@ const songList: Song[] = [
     artist: 'Soundgarden',
     album: 'Badmotorfinger',
     cover: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTU1LDcwIEwxNDUsNzAgTDE0NSwxMzAgTDU1LDEzMCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNmZmYiLz48bGluZSB4MT0iNTUiIHkxPSI3MCIgeDI9IjE0NSIgeTI9IjEzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iNTUiIHkxPSIxMzAiIHgyPSIxNDUiIHkyPSI3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=',
-    audioUrl: '/audio/song3.wav'
+    audioUrl: '/mp3/song3.mp3'
   }
 ];
 
@@ -48,20 +48,7 @@ const FuturisticTurntable = () => {
   const animationRef = useRef<number>();
   const discRef = useRef<HTMLDivElement>(null);
   const armRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  
-  // Inicializar o elemento de áudio
-  useEffect(() => {
-    audioRef.current = new Audio();
-    audioRef.current.volume = volume;
-    
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
+  const audioRef = useRef<HTMLAudioElement>(null);
   
   // Efeito para atualizar o volume
   useEffect(() => {
@@ -70,55 +57,9 @@ const FuturisticTurntable = () => {
     }
   }, [volume]);
   
-  // Efeito para atualizar a música quando ela é alterada
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = selectedSong.audioUrl;
-      audioRef.current.load();
-      
-      // Adicionar listener para atualizar o progresso da música
-      const updateProgress = () => {
-        if (audioRef.current) {
-          const currentProgress = audioRef.current.currentTime / audioRef.current.duration;
-          setProgress(isNaN(currentProgress) ? 0 : currentProgress);
-        }
-      };
-      
-      // Adicionar listener para quando a música acabar
-      const handleEnded = () => {
-        setIsPlaying(false);
-        
-        // Ir para a próxima música
-        const currentIndex = songList.findIndex(song => song.id === selectedSong.id);
-        const nextIndex = (currentIndex + 1) % songList.length;
-        setTimeout(() => {
-          setSelectedSong(songList[nextIndex]);
-          setIsPlaying(true);
-        }, 500);
-      };
-      
-      audioRef.current.addEventListener('timeupdate', updateProgress);
-      audioRef.current.addEventListener('ended', handleEnded);
-      
-      return () => {
-        if (audioRef.current) {
-          audioRef.current.removeEventListener('timeupdate', updateProgress);
-          audioRef.current.removeEventListener('ended', handleEnded);
-        }
-      };
-    }
-  }, [selectedSong]);
-
-  // Efeito para controlar a reprodução e a rotação do disco
+  // Efeito para controlar a rotação do disco
   useEffect(() => {
     if (isPlaying) {
-      if (audioRef.current) {
-        audioRef.current.play().catch(err => {
-          console.error("Error playing audio:", err);
-          setIsPlaying(false);
-        });
-      }
-      
       let lastTime = 0;
       
       const animate = (time: number) => {
@@ -141,11 +82,21 @@ const FuturisticTurntable = () => {
       if (armRef.current) {
         armRef.current.style.transform = 'rotate(25deg)';
       }
+      
+      // Iniciar a reprodução
+      if (audioRef.current) {
+        audioRef.current.play().catch(err => {
+          console.error("Error playing audio:", err);
+          setIsPlaying(false);
+        });
+      }
     } else {
+      // Pausar a reprodução
       if (audioRef.current) {
         audioRef.current.pause();
       }
       
+      // Parar a animação
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -163,6 +114,34 @@ const FuturisticTurntable = () => {
     };
   }, [isPlaying]);
 
+  // Efeito para atualizar a música quando ela é alterada
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load(); // Isso recarrega o áudio com a nova fonte
+    }
+  }, [selectedSong]);
+
+  // Handler para atualizar o progresso
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const currentProgress = audioRef.current.currentTime / audioRef.current.duration;
+      setProgress(isNaN(currentProgress) ? 0 : currentProgress);
+    }
+  };
+
+  // Handler para quando a música acabar
+  const handleEnded = () => {
+    setIsPlaying(false);
+    
+    // Ir para a próxima música
+    const currentIndex = songList.findIndex(song => song.id === selectedSong.id);
+    const nextIndex = (currentIndex + 1) % songList.length;
+    setTimeout(() => {
+      setSelectedSong(songList[nextIndex]);
+      setIsPlaying(true);
+    }, 500);
+  };
+
   // Função para alternar entre play/pause
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
@@ -175,9 +154,6 @@ const FuturisticTurntable = () => {
     } else {
       // Parar a música atual
       setIsPlaying(false);
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
       
       setTimeout(() => {
         setSelectedSong(song);
@@ -194,6 +170,15 @@ const FuturisticTurntable = () => {
 
   return (
     <div className="w-full relative">
+      {/* Elemento de áudio */}
+      <audio 
+        ref={audioRef}
+        src={selectedSong.audioUrl}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleEnded}
+        className="hidden"
+      />
+      
       {/* Toca-discos */}
       <div className="relative bg-mono-deeper border border-mono-white/20 rounded-lg p-6 w-full aspect-square max-w-md mx-auto shadow-[0_0_30px_rgba(255,255,255,0.05)] backdrop-blur-md">
         {/* Base giratória */}
